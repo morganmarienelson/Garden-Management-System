@@ -38,12 +38,17 @@ export default function OpenAppBtn() {
     }
 
     const handleModalClose = () => {
-        if (date.length > 0){
-            message.warning('Application window was not changed');
-        } else {
-            message.warning('Application window was not set');
-        }
-        setIsOpen(false);
+        Modal.confirm({
+            title: "Are you sure that you want to cancel? The application window will not be set or changed.",
+            onOk: () => {
+                if (date.length > 0){
+                    message.warning('Application window was not changed');
+                } else {
+                    message.warning('Application window was not set');
+                }
+                setIsOpen(false);
+            },
+        });
     }
 
     const onModalOk = () => {
@@ -53,7 +58,7 @@ export default function OpenAppBtn() {
             message.success('Application window set');
             setIsOpen(false);
         } else {
-            if (tempDate.length == 0){
+            if (tempDate.length === 0){
                 message.error('Application window was not selected. Please select a valid range');
             } else {
                 message.error('The end date must be after the current date');
