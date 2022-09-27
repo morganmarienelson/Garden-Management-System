@@ -16,7 +16,7 @@ export default function OpenAppBtn() {
     useEffect(() => {
         const checkTheDate = async () => {
             if (checkDate){
-                if (date.length == 0){
+                if (date.length === 0){
                     setShowCloseBtn(false);
                 } else if (moment().isAfter(date[1])){
                     setDate([]);
@@ -78,7 +78,7 @@ export default function OpenAppBtn() {
 
     return (
         <div>
-            <Button type="primary" onClick={handleModalOpen}>Application Window</Button>
+            <Button type="primary" className="appBtn" onClick={handleModalOpen}>Application Window</Button>
             <Modal
                 onOk={onModalOk}
                 open={isOpen}
@@ -86,9 +86,9 @@ export default function OpenAppBtn() {
             >
                 <div className="modal">
                     {showCloseBtn ? (
-                        <h2>Current Application Window</h2>
+                        <div className="modalHeading">Current Application Window</div>
                     ) : (
-                        <h2>Select Application Window</h2>
+                        <div className="modalHeading">Select Application Window</div>
                     )}
                     <div className="datePicker">
                         <DatePicker.RangePicker

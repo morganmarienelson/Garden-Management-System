@@ -4,7 +4,7 @@ import OpenAppBtn from "./components/OpenAppBtn";
 function App() {
   return (
       <div className="container">
-        {/*<OpenAppBtn/>*/}
+        <OpenAppBtn/>
       </div>
   );
 }
