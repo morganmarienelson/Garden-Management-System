@@ -1,3 +1,4 @@
+import React from 'react'
 import { createTheme , ThemeProvider} from '@mui/material/styles';
 import PersistentDrawerLeft from './components/navbar';
 import {Routes, Route} from 'react-router-dom';
@@ -47,7 +48,6 @@ function App() {
       <Route path="/Applications" element={<Applications />} />
     </Routes>
     </div>
-    
   );
 }
 
