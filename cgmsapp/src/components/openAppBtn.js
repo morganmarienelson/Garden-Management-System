@@ -30,7 +30,7 @@ export default function OpenAppBtn() {
             setCheckDate(false);
         }
         checkTheDate();
-    }, [checkDate]);
+    }, [checkDate, date]);
 
     const handleModalOpen = () => {
         setCheckDate(true);
@@ -38,17 +38,12 @@ export default function OpenAppBtn() {
     }
 
     const handleModalClose = () => {
-        Modal.confirm({
-            title: "Are you sure that you want to cancel? The application window will not be set or changed.",
-            onOk: () => {
                 if (date.length > 0){
                     message.warning('Application window was not changed');
                 } else {
                     message.warning('Application window was not set');
                 }
                 setIsOpen(false);
-            },
-        });
     }
 
     const onModalOk = () => {
