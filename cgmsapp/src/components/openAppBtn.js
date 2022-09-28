@@ -56,16 +56,16 @@ export default function OpenAppBtn() {
 
     const onModalOk = () => {
             if (tempDate.length === 0){
-                setMessage('Application window was not selected. Please select a valid range')
+                setMessage('Application window was not selected. Please select a valid range.')
                 setAlertType("error")
                 setAlertOpen(true)
             } else if (moment().isAfter(tempDate[1])){
-                setMessage('The end date must be after the current date')
+                setMessage('The end date must be after the current date.')
                 setAlertType("error")
                 setAlertOpen(true)
             } else {
                 setDate(tempDate);
-                setMessage("Application window has been set")
+                setMessage("Application window has been set!")
                 setAlertType("success")
                 setAlertOpen(true)
                 setIsOpen(false);
@@ -77,7 +77,7 @@ export default function OpenAppBtn() {
     }
 
     const confirmClose = () => {
-        setMessage("Application has been closed");
+        setMessage("Application has been closed!");
         setAlertType("success")
         setAlertOpen(true)
         setDate([]);
