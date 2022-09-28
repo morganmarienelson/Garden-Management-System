@@ -43,11 +43,11 @@ export default function OpenAppBtn() {
 
     const handleModalClose = () => {
                 if (tempDate.length > 0){
-                    setMessage('Application window was not changed')
+                    setMessage('Application window was not changed.')
                     setAlertType("warning")
                     setAlertOpen(true)
                 } else {
-                    setMessage('Application window was not set')
+                    setMessage('Application window was not set.')
                     setAlertType("warning")
                     setAlertOpen(true)
                 }
