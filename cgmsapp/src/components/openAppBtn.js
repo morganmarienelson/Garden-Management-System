@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {Modal, Button, DatePicker, message, Popconfirm} from 'antd';
+import {Modal, Button, DatePicker, Popconfirm} from 'antd';
 import {useState} from "react";
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css';
 import '../css/openAppBtn.css'
 import moment from "moment";
 import { useEffect } from "react";
+import {Snackbar, Alert} from "@mui/material";
 
 export default function OpenAppBtn() {
     const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,9 @@ export default function OpenAppBtn() {
     const [date, setDate] = useState([]);
     const [tempDate, setTempDate] = useState([]);
     const [checkDate, setCheckDate] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
+    const [alertType, setAlertType] = useState("");
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         const checkTheDate = async () => {
@@ -38,27 +42,34 @@ export default function OpenAppBtn() {
     }
 
     const handleModalClose = () => {
-                if (date.length > 0){
-                    message.warning('Application window was not changed');
+                if (tempDate.length > 0){
+                    setMessage('Application window was not changed')
+                    setAlertType("warning")
+                    setAlertOpen(true)
                 } else {
-                    message.warning('Application window was not set');
+                    setMessage('Application window was not set')
+                    setAlertType("warning")
+                    setAlertOpen(true)
                 }
                 setIsOpen(false);
     }
 
     const onModalOk = () => {
-        if (tempDate.length > 0 && tempDate[1].isAfter(moment())
-        ){
-            setDate(tempDate);
-            message.success('Application window set');
-            setIsOpen(false);
-        } else {
             if (tempDate.length === 0){
-                message.error('Application window was not selected. Please select a valid range');
+                setMessage('Application window was not selected. Please select a valid range')
+                setAlertType("error")
+                setAlertOpen(true)
+            } else if (moment().isAfter(tempDate[1])){
+                setMessage('The end date must be after the current date')
+                setAlertType("error")
+                setAlertOpen(true)
             } else {
-                message.error('The end date must be after the current date');
+                setDate(tempDate);
+                setMessage("Application window has been set")
+                setAlertType("success")
+                setAlertOpen(true)
+                setIsOpen(false);
             }
-        }
     }
 
     const selectedDate = (value) => {
@@ -66,19 +77,25 @@ export default function OpenAppBtn() {
     }
 
     const confirmClose = () => {
-        message.success('Application has been closed');
+        setMessage("Application has been closed");
+        setAlertType("success")
+        setAlertOpen(true)
         setDate([]);
         setIsOpen(false);
     }
 
-    const cancelClose = () => {
-        message.error('Application was not closed');
+    const handleAlertClose = () =>{
+        setAlertOpen(false);
     }
-
 
     return (
         <div>
             <Button type="primary" className="appBtn" onClick={handleModalOpen}>Application Window</Button>
+            <Snackbar open={alertOpen} sx={{ width: '100%' }} autoHideDuration={2000} onClose={handleAlertClose}>
+                <Alert autoHideDuration={1} severity={alertType} onClose={handleAlertClose}>
+                    {message}
+                </Alert>
+            </Snackbar>
             <Modal
                 onOk={onModalOk}
                 open={isOpen}
@@ -104,7 +121,6 @@ export default function OpenAppBtn() {
                                     <Popconfirm
                                         title="Are you sure to close this application?"
                                         onConfirm={confirmClose}
-                                        onCancel={cancelClose}
                                         okText="Yes"
                                         cancelText="No"
                                     >
