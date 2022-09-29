@@ -1,4 +1,7 @@
 import React from 'react';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css'
+import "bootstrap-icons/font/bootstrap-icons.css";
+import 'font-awesome/css/font-awesome.min.css';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
