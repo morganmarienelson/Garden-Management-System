@@ -56,11 +56,11 @@ export default function OpenAppBtn() {
 
     const onModalOk = () => {
             if (tempDate.length === 0){
-                setMessage('Application window was not selected. Please select a valid range.')
+                setMessage('Application window was not selected. Please select a valid date range.')
                 setAlertType("error")
                 setAlertOpen(true)
             } else if (moment().isAfter(tempDate[1])){
-                setMessage('The end date must be after the current date.')
+                setMessage('The end date must be after the current date. Please select a valid date range.')
                 setAlertType("error")
                 setAlertOpen(true)
             } else {
@@ -90,7 +90,7 @@ export default function OpenAppBtn() {
 
     return (
         <div>
-            <Button type="primary" className="appBtn" onClick={handleModalOpen}>Application Window</Button>
+            <Button type="primary" className="appBtn" onClick={handleModalOpen}>Set Application Window</Button>
             <Snackbar open={alertOpen} sx={{ width: '100%' }} autoHideDuration={2000} onClose={handleAlertClose}>
                 <Alert autoHideDuration={1} severity={alertType} onClose={handleAlertClose}>
                     {message}
