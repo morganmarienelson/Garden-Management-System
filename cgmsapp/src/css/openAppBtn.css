@@ -1,15 +1,13 @@
-.modal{
-    text-align: center;
-    padding: 20px;
-}
-
 .datePicker{
-    margin-top: 30px;
+    margin: auto;
+    text-align: center;
 }
 
 .modalHeading{
     font-size: 25px;
     font-weight: bold;
+    text-align: center;
+    padding: 20px;
 }
 
 .closeAppBtn{
