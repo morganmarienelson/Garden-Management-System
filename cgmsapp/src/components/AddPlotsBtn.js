@@ -33,7 +33,7 @@ export default function AdddPlotsBtn() {
             <TextField margin="dense" id="outlined-basic" label="Plot ID" variant="outlined" />
           </div>
           <div>
-            <TextField margin="dense" id="outlined-basic" label="Size" variant="outlined" />
+            <TextField margin="dense" id="outlined-basic" label="Dimensions" variant="outlined" />
           </div>
           <TextField
             autoFocus
