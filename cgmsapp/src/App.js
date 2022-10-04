@@ -1,8 +1,10 @@
+import React from 'react'
 import { createTheme , ThemeProvider} from '@mui/material/styles';
 import PersistentDrawerLeft from './components/navbar';
 import {Routes, Route} from 'react-router-dom';
 import Applications from './components/applications';
 import Plots from './components/plots';
+import Footer from './components/footer';
 
 const theme = createTheme({
   palette: {
@@ -41,13 +43,13 @@ function App() {
     <div>
     <ThemeProvider theme={theme}>
       <PersistentDrawerLeft/>
-    </ThemeProvider>
     <Routes>
       <Route path="/plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
     </Routes>
+    <Footer/>
+    </ThemeProvider>
     </div>
-    
   );
 }
 

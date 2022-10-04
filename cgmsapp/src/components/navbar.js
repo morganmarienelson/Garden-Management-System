@@ -122,7 +122,7 @@ export default function PersistentDrawerLeft() {
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
           >
-            <MenuIcon  sx={{ml: 1, fontSize:30}}/>
+            <MenuIcon  sx={{fontSize:30}}/>
           </IconButton>
           <Typography variant="h5" noWrap component="div">
             Garden Manager

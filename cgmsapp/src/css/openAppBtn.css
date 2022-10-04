@@ -1,0 +1,24 @@
+.modal{
+    text-align: center;
+    padding: 20px;
+}
+
+.datePicker{
+    margin-top: 30px;
+}
+
+.modalHeading{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.closeAppBtn{
+    margin-top: 30px;
+    font-size: 20px;
+    height: 40px;
+}
+
+.appBtn{
+    font-size: 20px;
+    height: 40px;
+}
