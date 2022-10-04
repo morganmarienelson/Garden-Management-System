@@ -24,7 +24,7 @@ export default function AdddPlotsBtn() {
         Add A Plot
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add A Plot</DialogTitle>
+        <DialogTitle>Add A New Plot</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please enter the plot id, plot size, and any additional details about the plot (Ex: Plot can only grow sunflowers).
