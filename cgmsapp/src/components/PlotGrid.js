@@ -83,6 +83,7 @@ const jsonResp = { // dummy data, json structure could change depending on what 
 
 for (let plot of jsonResp.plots) {
   plot.status = plot.status ? "✅" : "❌";
+  plot.feeAmount = `$${plot.feeAmount}`
 }
 
 
