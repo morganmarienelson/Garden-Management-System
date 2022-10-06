@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Modal, Button, DatePicker, Popconfirm} from 'antd';
 import {useState} from "react";
-import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.min.css'
 import '../css/openAppBtn.css'
 import moment from "moment";
 import { useEffect } from "react";
@@ -103,7 +103,6 @@ export default function OpenAppBtn() {
                 open={isOpen}
                 onCancel={handleModalClose}
             >
-                <div className="modal">
                     {showCloseBtn ? (
                         <div className="modalHeading">Current Application Window</div>
                     ) : (
@@ -116,7 +115,6 @@ export default function OpenAppBtn() {
                             size={"large"}
                             onChange={selectedDate}
                         />
-
                         {showCloseBtn ? (
                             <>
                                 <div>
@@ -133,7 +131,6 @@ export default function OpenAppBtn() {
                         ) : (
                             <></>
                         )}
-                    </div>
                 </div>
             </Modal>
         </div>
