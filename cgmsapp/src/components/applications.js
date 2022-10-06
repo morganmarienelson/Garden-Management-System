@@ -23,6 +23,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
 
 function createData(name, address, number, plotSize, email) {
   return {
@@ -162,60 +169,90 @@ EnhancedTableHead.propTypes = {
 
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
+  const [Isopen, setIsOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setIsOpen(true);
+  };
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: (theme) =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          component="div"
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          Applicants
-        </Typography>
-      )}
+    <div>
+      <Toolbar
+        sx={{
+          pl: { sm: 2 },
+          pr: { xs: 1, sm: 1 },
+          ...(numSelected > 0 && {
+            bgcolor: (theme) =>
+              alpha(
+                theme.palette.primary.main,
+                theme.palette.action.activatedOpacity
+              ),
+          }),
+        }}
+      >
+        {numSelected > 0 ? (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            color="inherit"
+            variant="subtitle1"
+            component="div"
+          >
+            {numSelected} selected
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ flex: "1 1 100%" }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Applicants
+          </Typography>
+        )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Accept">
-          <IconButton>
-            <CheckIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        ""
-      )}
-      {numSelected > 0 ? (
-        <Tooltip title="Cancel">
-          <IconButton>
-            <CancelIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        ""
-      )}
-    </Toolbar>
+        {numSelected > 0 ? (
+          <Tooltip title="Accept">
+            <IconButton onClick={handleClickOpen}>
+              <CheckIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          ""
+        )}
+        {numSelected > 0 ? (
+          <Tooltip title="Cancel">
+            <IconButton>
+              <CancelIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          ""
+        )}
+      </Toolbar>
+      <Dialog
+        open={Isopen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Application Approval"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to accept this application?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Disagree</Button>
+          <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 };
 
@@ -223,7 +260,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
- function EnhancedTable() {
+function EnhancedTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -390,11 +427,11 @@ EnhancedTableToolbar.propTypes = {
   );
 }
 
-export default function Applications(){
-return (
+export default function Applications() {
+  return (
     <div>
       <OpenAppBtn />
       <EnhancedTable />
     </div>
-)
+  );
 }
