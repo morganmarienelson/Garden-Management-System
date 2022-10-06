@@ -90,7 +90,7 @@ export default function OpenAppBtn() {
 
     return (
         <div>
-            <Button type="primary" className="appBtn" onClick={handleModalOpen}>Set Application Window</Button>
+            <Button className="appBtn" onClick={handleModalOpen}>Set Application Window</Button>
             <Snackbar open={alertOpen} sx={{ width: '100%' }} autoHideDuration={2000} onClose={handleAlertClose}>
                 <Alert autoHideDuration={1} severity={alertType} onClose={handleAlertClose}>
                     {message}
