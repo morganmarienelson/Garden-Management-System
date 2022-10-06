@@ -14,7 +14,7 @@ export default function OpenAppBtn() {
     const [tempDate, setTempDate] = useState([]);
     const [checkDate, setCheckDate] = useState(false);
     const [alertOpen, setAlertOpen] = useState(false);
-    const [alertType, setAlertType] = useState("success");
+    const [alertType, setAlertType] = useState("");
     const [message, setMessage] = useState("");
 
     useEffect(() => {
@@ -65,8 +65,6 @@ export default function OpenAppBtn() {
                 setAlertOpen(true)
             } else {
                 setDate(tempDate);
-                let apDate = tempDate[0].format('MM/DD/YYYY') + ", " + tempDate[1].format('MM/DD/YYYY')
-                console.log(apDate);
                 setMessage("Application window has been set!")
                 setAlertType("success")
                 setAlertOpen(true)
@@ -94,7 +92,7 @@ export default function OpenAppBtn() {
         <div>
             <Button type="primary" className="appBtn" onClick={handleModalOpen}>Set Application Window</Button>
             <Snackbar open={alertOpen} sx={{ width: '100%' }} autoHideDuration={2000} onClose={handleAlertClose}>
-                <Alert autohideduration={1} severity={alertType} onClose={handleAlertClose}>
+                <Alert autoHideDuration={1} severity={alertType} onClose={handleAlertClose}>
                     {message}
                 </Alert>
             </Snackbar>
@@ -133,6 +131,7 @@ export default function OpenAppBtn() {
                         ) : (
                             <></>
                         )}
+
                     </div>
                 </div>
             </Modal>
