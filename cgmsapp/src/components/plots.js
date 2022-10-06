@@ -1,6 +1,5 @@
 import { red } from "@mui/material/colors";
 import React from "react";
-import OpenAppBtn from "./openAppBtn";
 
 import PlotGrid from "./PlotGrid";
 import AddPlotsBtn from "./AddPlotsBtn";
