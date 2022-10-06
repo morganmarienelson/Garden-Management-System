@@ -19,6 +19,8 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import OpenAppBtn from "./openAppBtn";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckIcon from "@mui/icons-material/Check";
+import CancelIcon from "@mui/icons-material/Cancel";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
@@ -196,17 +198,22 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Accept">
           <IconButton>
-            <DeleteIcon />
+            <CheckIcon />
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
+        ""
+      )}
+      {numSelected > 0 ? (
+        <Tooltip title="Cancel">
           <IconButton>
-            <FilterListIcon />
+            <CancelIcon />
           </IconButton>
         </Tooltip>
+      ) : (
+        ""
       )}
     </Toolbar>
   );
