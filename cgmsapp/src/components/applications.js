@@ -29,6 +29,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
 
 function createData(name, address, number, plotSize, email) {
   return {
@@ -168,13 +170,19 @@ EnhancedTableHead.propTypes = {
 
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
-  const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [declineOpen, setDeclineOpen] = React.useState(false);
+  const handleDeclineClickOpen = () => {
+    setDeclineOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleDeclineClose = () => {
+    setDeclineOpen(false);
+  };
+  const [acceptOpen, setAcceptOpen] = React.useState(false);
+  const handleAcceptClickOpen = () => {
+    setAcceptOpen(true);
+  };
+  const handleAcceptClose = () => {
+    setAcceptOpen(false);
   };
 
   return (
@@ -214,7 +222,7 @@ const EnhancedTableToolbar = (props) => {
 
         {numSelected > 0 ? (
           <Tooltip title="Accept">
-            <IconButton>
+            <IconButton onClick={handleAcceptClickOpen}>
               <CheckIcon />
             </IconButton>
           </Tooltip>
@@ -222,8 +230,8 @@ const EnhancedTableToolbar = (props) => {
           ""
         )}
         {numSelected > 0 ? (
-          <Tooltip title="Cancel">
-            <IconButton onClick={handleClickOpen}>
+          <Tooltip title="Decline">
+            <IconButton onClick={handleDeclineClickOpen}>
               <CancelIcon />
             </IconButton>
           </Tooltip>
@@ -233,8 +241,8 @@ const EnhancedTableToolbar = (props) => {
       </Toolbar>
 
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={declineOpen}
+        onClose={handleDeclineClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -247,8 +255,29 @@ const EnhancedTableToolbar = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleDeclineClose}>Disagree</Button>
+          <Button onClick={handleDeclineClose} autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={acceptOpen}
+        onClose={handleAcceptClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Decline Application"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to accept this application?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleAcceptClose}>Disagree</Button>
+          <Button onClick={handleAcceptClose} autoFocus>
             Agree
           </Button>
         </DialogActions>
@@ -268,6 +297,7 @@ EnhancedTableToolbar.propTypes = {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  //What is this used for?
   const [applicant, setAppliant] = useState(Applicants);
 
   const handleRequestSort = (event, property) => {
