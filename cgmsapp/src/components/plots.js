@@ -22,9 +22,8 @@ export default function Plots(){
     return (
         <div>
             <div id="content-wrapper" >
-                <div id="page-label-box">
+                <div id="page-label-box" style={{margin: 10}}>
                     <h1>Plots</h1>
-                    <AddPlotsBtn />
                 </div>
             </div>
             <Card
@@ -46,7 +45,10 @@ export default function Plots(){
                 {showGrid ? (
                     <GardenGrid/>
                 ) : (
+                    <>
+                    <AddPlotsBtn />
                     <PlotGrid/>
+                    </>
                 )}
             </Card>
         </div>
