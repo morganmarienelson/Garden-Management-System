@@ -14,12 +14,20 @@ export default function GardenGrid (){
         setIsModalOpen(true);
     }
 
+    function setPlotColor(plot) {
+        if (plot.owner === "Vacant"){
+            return "#7cb342";
+        } else {
+            return "#808080";
+        }
+    }
+
     return (
         <>
         <Card title="Garden Layout" hoverable={false}>
             {GridTestData.map((plot) => (
-              <Card.Grid onClick={() => onPlotClick(plot)} style={{background: plot.color, width: plot.width}}>
-                  {plot.name}
+              <Card.Grid onClick={() => onPlotClick(plot)} style={{background: setPlotColor(plot), width: plot.width}}>
+                  {plot.owner}
               </Card.Grid>
             ))}
         </Card>

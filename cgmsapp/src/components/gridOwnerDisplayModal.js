@@ -13,7 +13,7 @@ export default function GridOwnerDisplayModal({ isModalOpen, setIsModalOpen, plo
 
     return (
         <Modal title="Plot Information" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <div className="plotModalInfo"><b>Owner:</b> {plotInfo.name}</div>
+            <div className="plotModalInfo"><b>Owner:</b> {plotInfo.owner}</div>
             <div className="plotModalInfo"><b>Dimensions:</b> {plotInfo.dimensions}</div>
             <div className="plotModalInfo"><b>Fee:</b> ${plotInfo.feeAmount}</div>
             <div className="plotModalInfo"><b>Additional Info:</b> {plotInfo.other}</div>
