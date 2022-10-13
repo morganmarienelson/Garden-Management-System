@@ -16,9 +16,9 @@ export default function GardenGrid (){
 
     function setPlotColor(plot) {
         if (plot.owner === "Vacant"){
-            return "#7cb342";
+            return "#E5E4E2";
         } else {
-            return "#808080";
+            return "#A9A9A9";
         }
     }
 
