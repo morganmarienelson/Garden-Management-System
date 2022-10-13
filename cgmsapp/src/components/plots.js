@@ -24,7 +24,6 @@ export default function Plots(){
         <div>
             <div id="content-wrapper" >
                 <div id="page-label-box" style={{margin: 10}}>
-                    <h1>Plots</h1>
                 </div>
             </div>
             <Card

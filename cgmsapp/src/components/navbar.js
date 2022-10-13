@@ -1,88 +1,50 @@
-import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import { styled, useTheme } from '@mui/material/styles';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import LocalFloristSharpIcon from '@mui/icons-material/LocalFloristSharp';
-import MailIcon from '@mui/icons-material/Mail';
-import AssignmentSharpIcon from '@mui/icons-material/AssignmentSharp';
-import QuestionAnswerSharpIcon from '@mui/icons-material/QuestionAnswerSharp';
-import NotificationsSharpIcon from '@mui/icons-material/NotificationsSharp';
-import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
-import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import PersonAdd from '@mui/icons-material/PersonAdd';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Button from '@mui/material/Button';
+import NotificationsSharpIcon from '@mui/icons-material/NotificationsSharp';
+import MenuItem from '@mui/material/MenuItem';
+import {useNavigate} from 'react-router-dom';
+import Divider from '@mui/material/Divider';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-import Avatar from '@mui/material/Avatar';
+import LocalFloristSharpIcon from '@mui/icons-material/LocalFloristSharp';
+import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
+import MailIcon from '@mui/icons-material/Mail';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
-const drawerWidth = 240;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-export default function PersistentDrawerLeft() {
+const ResponsiveAppBar = () => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorElNoti, setAnchorElNoti] = React.useState(null);
   const Newopen = Boolean(anchorEl);
+  const Opennew = Boolean(anchorElNoti);
+  const [value, setValue] = React.useState('1');
   const navigate = useNavigate();
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const navigatePlots = () => {
     // 👇️ navigate to /
@@ -94,12 +56,14 @@ export default function PersistentDrawerLeft() {
     navigate('/Applications');
   };
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const navigateMail = () => {
+    // 👇️ navigate to /
+    navigate('/Mail');
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const navigateForum = () => {
+    // 👇️ navigate to /
+    navigate('/Forum');
   };
 
   const handleClick = (event) => {
@@ -110,30 +74,157 @@ export default function PersistentDrawerLeft() {
     setAnchorEl(null);
   };
 
+  const handleClickNoti = (event) => {
+    setAnchorElNoti(event.currentTarget);
+  };
+
+  const handleCloseNoti = () => {
+    setAnchorElNoti(null);
+  };
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+  };
+  
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <LocalFloristSharpIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 2 }} />
+          <Typography
+            textAlign={'center'}
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              ":hover": { color: 'inherit' },
+            }}
           >
-            <MenuIcon  sx={{fontSize:30}}/>
-          </IconButton>
-          <Typography variant="h5" noWrap component="div">
             Garden Manager
           </Typography>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ flexGrow: 0 }}>
-            <IconButton sx={{mr:1}}>
-              <NotificationsSharpIcon sx={{ fontSize: 35, color: "white" }} />
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
             </IconButton>
-              <IconButton onClick={handleClick} sx={{ p: 0 }}>
-                <AccountCircleSharpIcon sx={{ fontSize: 35, color: "white"}} />
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button variant="text" onClick = {navigatePlots}>Plots</Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button variant="text" onClick = {navigateApplications}>Applications</Button>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Button onClick = {navigateForum} variant="text" >Question Forum</Button>
+                </MenuItem>
+            </Menu>
+          </Box>
+          <Typography
+            textAlign={'center'}
+            variant="h6"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            Garden Manager
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+              <Button
+                onClick={navigatePlots}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Plots
+              </Button>
+              <Button onClick={navigateApplications} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Applications
+              </Button>
+              <Button onClick = {navigateForum} sx={{ my: 2, color: 'white', display: 'block' }}>
+                Question Forum
+              </Button>
+
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <IconButton >
+              <MailIcon onClick = {navigateMail} sx={{ fontSize: 30, color: "white" }}/>
+            </IconButton>
+          <IconButton>
+              <NotificationsSharpIcon onClick = {handleClickNoti} sx={{ fontSize: 30, color: "white" }} />
+            </IconButton>
+              <IconButton onClick={handleClick}>
+                <AccountCircleSharpIcon sx={{ fontSize: 30, color: "white"}} />
               </IconButton>
             <Menu
         anchorEl={anchorEl}
@@ -142,17 +233,18 @@ export default function PersistentDrawerLeft() {
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
-          elevation: 0,
+          elevation: 1,
           sx: {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
-            '& .MuiAvatar-root': {
+            '& .MuiAccountCircleSharpIcon-root': {
               width: 32,
               height: 32,
               ml: -0.5,
               mr: 1,
             },
+
             '&:before': {
               content: '""',
               display: 'block',
@@ -171,10 +263,16 @@ export default function PersistentDrawerLeft() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem>
-          <Avatar /> Profile
+        <ListItemIcon>
+          <AccountCircleSharpIcon fontSize="small"/> 
+          </ListItemIcon>
+          Profile
         </MenuItem>
         <MenuItem>
-          <Avatar /> My account
+        <ListItemIcon>
+          <AccountCircleSharpIcon fontSize = "small"/>
+          </ListItemIcon>
+           My account
         </MenuItem>
         <Divider />
         <MenuItem>
@@ -190,43 +288,98 @@ export default function PersistentDrawerLeft() {
           Logout
         </MenuItem>
       </Menu>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
+      <Menu
+        anchorEl={anchorElNoti}
+        id="notification-menu"
+        open={Opennew}
+        onClose={handleCloseNoti}
+        PaperProps={{
+          elevation: 1,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAccountCircleSharpIcon-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
           },
         }}
-        variant="persistent"
-        anchor="left"
-        open={open}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {['Plots', 'Question Forum', 'Applications', 'Mail'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-                {index === 1 && <ListItemButton><ListItemIcon><QuestionAnswerSharpIcon></QuestionAnswerSharpIcon></ListItemIcon><ListItemText primary={text} /></ListItemButton>}
-                {index === 0 && <ListItemButton onClick = {navigatePlots}><ListItemIcon><LocalFloristSharpIcon></LocalFloristSharpIcon></ListItemIcon><ListItemText primary={text} /></ListItemButton>}
-                {index === 2 && <ListItemButton onClick = {navigateApplications}><ListItemIcon><AssignmentSharpIcon></AssignmentSharpIcon></ListItemIcon><ListItemText primary={text} /></ListItemButton>}
-                {index === 3 && <ListItemButton><ListItemIcon><MailIcon></MailIcon></ListItemIcon><ListItemText primary={text} /></ListItemButton>}
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-      </Main>
+      <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
+          <Tab label="New" {...a11yProps(0)} />
+          <Tab label="Dismissed" {...a11yProps(1)} />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+      <List sx={{width : "100%"}}>
+        <ListItem secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  }>
+          <ListItemButton>
+          <ListItemIcon>
+            <AccountCircleSharpIcon/>
+          </ListItemIcon>
+          <ListItemText>Notification</ListItemText>
+          </ListItemButton>
+          </ListItem>
+          </List>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+      <List sx={{width : "100%"}}>
+      <ListItem secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  }>
+            <ListItemButton>
+          <ListItemIcon>
+            <AccountCircleSharpIcon/>
+          </ListItemIcon>
+          <ListItemText>Notification</ListItemText>
+          </ListItemButton>
+          </ListItem>
+          <ListItem secondaryAction={
+                    <IconButton edge="end" aria-label="delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  }>
+          <ListItemButton>
+          <ListItemIcon>
+            <AccountCircleSharpIcon/>
+          </ListItemIcon>
+          <ListItemText>Notification</ListItemText>
+          </ListItemButton>
+          </ListItem>
+          </List>
+      </TabPanel>
     </Box>
+      </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
-}
+};
+export default ResponsiveAppBar;

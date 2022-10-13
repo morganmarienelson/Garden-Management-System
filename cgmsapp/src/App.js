@@ -5,6 +5,8 @@ import {Routes, Route} from 'react-router-dom';
 import Applications from './components/applications';
 import Plots from './components/plots';
 import Footer from './components/footer';
+import Mail from './components/mail';
+import QuestionForum from './components/questionForum';
 
 const theme = createTheme({
   palette: {
@@ -44,8 +46,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <PersistentDrawerLeft/>
     <Routes>
-      <Route path="/plots" element={<Plots />} />
+      <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
+      <Route path="/Mail" element={<Mail />} />
+      <Route path = "/Forum" element={<QuestionForum />} />
     </Routes>
     <Footer/>
     </ThemeProvider>
