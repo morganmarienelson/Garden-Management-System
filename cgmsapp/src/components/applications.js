@@ -104,6 +104,13 @@ const headCells = [
     disablePadding: false,
     label: "Email",
   },
+  {
+    id: "action",
+    numeric: true,
+    disablePadding: false,
+    label: "Action",
+  },
+  
 ];
 
 function EnhancedTableHead(props) {
@@ -268,7 +275,7 @@ const EnhancedTableToolbar = (props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Decline Application"}
+          {"Accept Application"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
@@ -361,6 +368,7 @@ EnhancedTableToolbar.propTypes = {
       applicant[0].address,
       applicant[0].number,
       applicant[0].email
+      
     ),
     createData(
       applicant[1].name,
