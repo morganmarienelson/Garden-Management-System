@@ -16,7 +16,7 @@ export default function GardenGrid (){
 
     return (
         <>
-        <Card title="Current Plots" hoverable={false}>
+        <Card title="Garden Plots" hoverable={false}>
             {GridTestData.map((plot) => (
               <Card.Grid onClick={() => onPlotClick(plot)} style={{background: plot.color, width: plot.width}}>
                   {plot.name}
