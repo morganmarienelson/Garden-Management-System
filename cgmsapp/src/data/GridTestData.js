@@ -11,7 +11,7 @@ export const GridTestData = [
     {
         id: 1,
         name: "Vacant",
-        color: "white",
+        color: "#7cb342",
         width: "25%",
         dimensions: "20' x 20'",
         feeAmount: 20,
@@ -38,7 +38,7 @@ export const GridTestData = [
     {
         id: 4,
         name: "Vacant",
-        color: "white",
+        color: "#7cb342",
         width: "25%",
         dimensions: "20' x 20'",
         feeAmount: 20,
@@ -56,7 +56,7 @@ export const GridTestData = [
     {
         id: 6,
         name: "Vacant",
-        color: "white",
+        color: "#7cb342",
         width: "100%",
         dimensions: "20' x 20'",
         feeAmount: 20,
