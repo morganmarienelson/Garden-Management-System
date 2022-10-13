@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import {GridTestData} from "../data/GridTestData";
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70, editable: false},
@@ -17,7 +18,7 @@ const columns = [
     editable: false,
   },
   {
-    field: 'plotOwner',
+    field: 'owner',
     headerName: 'Owner',
     width: 150,
     editable: false,
@@ -91,7 +92,7 @@ export default function PlotGrid() {
   return (
     <Box sx={{width: '92%', m: 5}}>
       <DataGrid
-        rows={jsonResp.plots}
+        rows={GridTestData}
         columns={columns}
         autoHeight={true}
         pageSize={8}
