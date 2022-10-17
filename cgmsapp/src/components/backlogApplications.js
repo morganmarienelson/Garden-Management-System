@@ -17,7 +17,6 @@ import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import OpenAppBtn from "./openAppBtn";
 import CheckIcon from "@mui/icons-material/Check";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { visuallyHidden } from "@mui/utils";
@@ -27,8 +26,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Card} from 'antd';
-import DeclinedTable from "./backlogApplications";
+
 
 function createData(name, address, number, plotSize, email) {
   return {
@@ -216,12 +214,12 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         ) : (
           <Typography
-            sx={{ flex: "1 1 100%" }}
+            sx={{ flex: "1 1 100%"}}
             variant="h6"
             id="tableTitle"
             component="div"
           >
-            Applicants
+            Declined Applicants
           </Typography>
         )}
 
@@ -295,7 +293,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
- function EnhancedTable() {
+ function DeclinedTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -463,65 +461,4 @@ EnhancedTableToolbar.propTypes = {
     </Box>
   );
 }
-
-export default function Applications(){
-  const [activeTabKey, setActiveTabKey] = useState('applications');
-  const [showBacklog, setShowBacklog] = useState(false);
-  const [showWindow, setShowWindow] = useState(false);
-
-
-    const tabList = [
-        {
-            key: "applications",
-            tab: "New Applications",
-        },
-        {
-            key: "backlog",
-            tab: "Declined Applications",
-        },
-        {
-          key: "window",
-          tab: "Set Application Window",
-      },
-]
-return (
-  <div>
-            <div id="content-wrapper" >
-                <div id="page-label-box" style={{margin: 10}}>
-                </div>
-            </div>
-            <Card
-                className="card"
-                style={{ width: "100%" }}
-                clas
-                tabList={tabList}
-                activeTabKey={activeTabKey}
-                onTabChange={(key) => {
-                    function onTabChange(key) {
-                        setActiveTabKey(key)
-                    }
-                        if (key === "backlog") {
-                            setShowBacklog(true);
-                            setShowWindow(false);
-                        } else if (key === "applications") {
-                            setShowBacklog(false);
-                            setShowWindow(false);
-                        } else if (key === "window") {
-                            setShowWindow(true);
-                            setShowBacklog(false);
-                        } else {
-                            setShowWindow(false);
-                            setShowBacklog(false);
-                        }
-
-                    onTabChange(key);
-                }}>
-                {showBacklog && <DeclinedTable />}
-                {showWindow && <OpenAppBtn />}
-                {!showBacklog && !showWindow && <EnhancedTable />}
-              
-            </Card>
-        </div>
-    );
-        }
-  
+export default DeclinedTable;

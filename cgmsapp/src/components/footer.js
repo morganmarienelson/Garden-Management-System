@@ -1,7 +1,10 @@
 import React from 'react';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   return (
     <MDBFooter bgColor='light' className='text-center text-lg-start text-muted'>
       <section className='d-flex justify-content-center p-4 border-bottom'>
@@ -40,27 +43,27 @@ export default function Footer() {
             <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Pages</h6>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/' className='text-reset'>
                   Dashboard
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/Forum' className='text-reset'>
                   Question Forum
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/Plots' className='text-reset'>
                     Plots
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/Applications' className='text-reset'>
                   Applications
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/Mail' className='text-reset'>
                   Mail
                 </a>
               </p>
