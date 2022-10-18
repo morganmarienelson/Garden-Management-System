@@ -38,8 +38,8 @@ const columns = [
     renderCell: EditPlotsBtn,
   },
   {
-    field: 'edit',
-    headerName: 'Edit',
+    field: 'delete',
+    headerName: 'Delete',
     width: 150,
     renderCell: DeletePlotsBtn,
   }
