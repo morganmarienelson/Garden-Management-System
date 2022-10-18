@@ -42,7 +42,7 @@ export const GridTestData = [
     {
         id: 6,
         owner: "Vacant",
-        width: "50%",
+        width: "25%",
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
@@ -50,6 +50,14 @@ export const GridTestData = [
     {
         id: 7,
         owner: "Phil",
+        width: "50%",
+        dimensions: "20' x 20'",
+        feeAmount: 20,
+        other: "Plot can only be used for vegetables.",
+    },
+    {
+        id: 8,
+        owner: "Steven",
         width: "50%",
         dimensions: "20' x 20'",
         feeAmount: 20,
