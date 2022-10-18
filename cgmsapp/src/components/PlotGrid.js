@@ -50,10 +50,6 @@ class PlotGrid extends React.Component {
     this.state = {gridData: GridTestData, columns: cols};
   }
 
-  componentDidMount() {
-
-  }
-
   testFunc = () => {
     this.setState({ gridData: [...this.state.gridData, 
       {
