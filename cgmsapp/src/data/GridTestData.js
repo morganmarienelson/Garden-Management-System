@@ -8,14 +8,6 @@ export const GridTestData = [
         width: "75%",
     },
     {
-        id: 1,
-        owner: "Vacant",
-        width: "25%",
-        dimensions: "20' x 20'",
-        feeAmount: 20,
-        other: "Plot is right by the road.",
-    },
-    {
         id: 2,
         owner: "Jacob",
         width: "25%",
@@ -56,7 +48,7 @@ export const GridTestData = [
         other: "Plot can only be used for vegetables.",
     },
     {
-        id: 6,
+        id: 7,
         owner: "Phil",
         width: "50%",
         dimensions: "20' x 20'",

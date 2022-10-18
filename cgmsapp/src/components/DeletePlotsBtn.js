@@ -18,6 +18,11 @@ export default function DeletePlotsBtn() {
     setOpen(false);
   };
 
+  const handleDeleteConfirm = () => {
+
+    setOpen(false);
+  }
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

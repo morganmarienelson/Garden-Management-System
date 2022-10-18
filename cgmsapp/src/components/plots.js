@@ -29,7 +29,6 @@ export default function Plots(){
             <Card
                 className="card"
                 style={{ width: "100%" }}
-                clas
                 tabList={tabList}
                 activeTabKey={activeTabKey}
                 onTabChange={(key) => {
