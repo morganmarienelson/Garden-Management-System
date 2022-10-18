@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import {GridTestData} from "../data/GridTestData";
+import EditPlotsBtn from './EditPlotsBtn';
+import DeletePlotsBtn from './DeletePlotsBtn';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70, editable: false},
@@ -9,12 +11,6 @@ const columns = [
     field: 'dimensions',
     headerName: 'Dimensions',
     width: 150,
-    editable: false,
-  },
-  {
-    field: 'status',
-    headerName: 'Status',
-    width: 100,
     editable: false,
   },
   {
@@ -34,6 +30,18 @@ const columns = [
     headerName: 'Other Notes',
     width: 400,
     editable: false,
+  },
+  {
+    field: 'edit',
+    headerName: 'Edit',
+    width: 150,
+    renderCell: EditPlotsBtn,
+  },
+  {
+    field: 'delete',
+    headerName: 'Delete',
+    width: 150,
+    renderCell: DeletePlotsBtn,
   }
 ];
 
