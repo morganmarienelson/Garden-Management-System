@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.min.css'
-import { Card } from 'antd';
+import {Button, Card} from 'antd';
 import {GridTestData} from "../data/GridTestData";
 import GridOwnerDisplayModal from "./gridOwnerDisplayModal";
+import EditGridModal from "./editGridModal";
 
 export default function GardenGrid (){
     const [plotInfo, setPlotInfo] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [isEditModalOpen, setEditIsModalOpen] = useState(false);
 
     function onPlotClick(plot) {
         setPlotInfo(plot);
@@ -22,6 +23,10 @@ export default function GardenGrid (){
         }
     }
 
+    function editGrid() {
+        setEditIsModalOpen(true)
+    }
+
     return (
         <>
         <Card title="Garden Layout" hoverable={false}>
@@ -32,6 +37,8 @@ export default function GardenGrid (){
             ))}
         </Card>
         <GridOwnerDisplayModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} plotInfo={plotInfo}/>
+            <EditGridModal isEditModalOpen={isEditModalOpen} setPlotColor={setPlotColor} setIsEditModalOpen={setIsModalOpen}/>
+            <Button type="primary" onClick={editGrid}>Edit Grid</Button>
         </>
     );
 }
