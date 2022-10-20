@@ -5,6 +5,7 @@ import DeclinedTable from "./backlogApplications";
 import OpenAppBtn from "./openAppBtn";
 import Applicants from "./ApplicantsState";
 import DeleteAppBtn from "./DeleteAppBtn";
+import ViewAppBtn from "./ViewAppBtn";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -19,7 +20,18 @@ const columns = [
     width: 90,
   },
   { field: "PID", headerName: "PID", width: 100 },
-  { field: "action", headerName: "Action", width: 130 },
+  {
+    field: "view",
+    headerName: "View",
+    width: 130,
+    renderCell: ViewAppBtn,
+  },
+  {
+    field: "reject",
+    headerName: "Reject",
+    width: 130,
+    renderCell: DeleteAppBtn,
+  },
 ];
 
 export function DataTable() {

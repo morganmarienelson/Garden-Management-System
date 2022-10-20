@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function DeleteAppBtn() {
+export default function ViewAppBtn() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -19,16 +19,13 @@ export default function DeleteAppBtn() {
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Reject
+        View
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          Are you sure you want to reject this application?
-        </DialogTitle>
+        <DialogTitle>Viewing Application</DialogTitle>
         <DialogContent></DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Reject</Button>
+          <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
     </div>
