@@ -6,6 +6,7 @@ import OpenAppBtn from "./openAppBtn";
 import Applicants from "./ApplicantsState";
 import DeleteAppBtn from "./DeleteAppBtn";
 import ViewAppBtn from "./ViewAppBtn";
+import DropdownPID from "./DropdownPID";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -19,7 +20,12 @@ const columns = [
     type: "number",
     width: 90,
   },
-  { field: "PID", headerName: "PID", width: 100 },
+  { 
+    field: "PID", 
+    headerName: "PID", 
+    width: 150,
+    renderCell: DropdownPID
+  },
   {
     field: "view",
     headerName: "View",
