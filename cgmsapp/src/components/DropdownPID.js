@@ -3,12 +3,14 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {GridTestData} from "../data/GridTestData";
+
 
 export default function DropdownPID() {
-    const [age, setAge] = React.useState('');
+    const [PlotID, setPlotID] = React.useState('');
 
     const handleChange = (event) => {
-      setAge(event.target.value);
+      setPlotID(event.target.value);
   };
 
   return (
@@ -18,16 +20,18 @@ export default function DropdownPID() {
       <Select
         labelId="demo-select-small"
         id="demo-select-small"
-        value={age}
-        label="Age"
+        value={PlotID}
+        label="PlotID"
         onChange={handleChange}
       >
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        {GridTestData.map((plot) => (
+              <MenuItem value={plot.id}>
+                  {plot.id}
+              </MenuItem>
+            ))}
       </Select>
     </FormControl>
     </div>
