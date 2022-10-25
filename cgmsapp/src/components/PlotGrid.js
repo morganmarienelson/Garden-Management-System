@@ -5,7 +5,6 @@ import { DataGrid } from '@mui/x-data-grid';
 class PlotGrid extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.columns, "HELP HELP OH GOD HELP")
   }
 
 
@@ -25,7 +24,6 @@ class PlotGrid extends React.Component {
           experimentalFeatures={{ newEditingApi: true }}
         />
       </Box>
-      <button onClick={this.testFunc} />
       </div>
     );
   };

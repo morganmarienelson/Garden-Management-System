@@ -9,6 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function UndoRejectButton(props) {
   const [open, setOpen] = React.useState(false);
+  const { handleUndoReject } = props.handleUndoReject;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,7 +30,7 @@ export default function UndoRejectButton(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={props.handleUndoReject}>Re-Open</Button>
+          <Button onClick={() => handleUndoReject(props.index.value, handleClose)}>Re-Open</Button>
         </DialogActions>
       </Dialog>
     </div>

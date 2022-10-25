@@ -34,23 +34,26 @@ export default function DeclinedTable() {
   
   let rowData = [
     { id: 1, lastName: 'Testingson', firstName: 'Jon', age: 35, reopen: 1},
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, reopen: 2 },
+    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, reopen: 3 },
+    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, reopen: 4 },
+    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null, reopen: 5 },
+    { id: 6, lastName: 'Melisandre', firstName: null, age: 150, reopen: 6 },
+    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 , reopen: 7},
+    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, reopen: 8 },
+    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, reopen: 9 },
   ];
   
   const [rows, setRows] = useState(rowData)
   
-  const handleUndoReject = (index) => {
+  const handleUndoReject = (i, handleClose) => {
+    console.log(i)
     let temp = rows.slice()
-    temp.splice(index-1, 1)
+    let index = temp.map(function(e) { return e.id; }).indexOf(i);
+    temp.splice(index, 1)
     setRows(temp)
     // TODO: post to open-applications in db
+    handleClose()
   }
 
   return (
@@ -60,6 +63,7 @@ export default function DeclinedTable() {
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
+        columnThreshold={100}
       />
     </div>
   );
