@@ -6,10 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Applicants from "./ApplicantsState";
+import {GridTestData} from "../data/GridTestData";
 
 export default function BasicSelect() {
   const [plot, setPlot] = React.useState("");
-  const [Applicant, setApplicant] = useState(Applicants);
 
   const handleChange = (event) => {
     setPlot(event.target.value);
@@ -28,9 +28,11 @@ export default function BasicSelect() {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        <MenuItem value={10}>1</MenuItem>
-        <MenuItem value={20}>2</MenuItem>
-        <MenuItem value={30}>3</MenuItem>
+        {GridTestData.map((plot) => (
+              <MenuItem value={plot.id}>
+                  {plot.id}
+              </MenuItem>
+            ))}
       </Select>
     </FormControl>
   );
