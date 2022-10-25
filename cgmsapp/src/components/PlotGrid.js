@@ -91,7 +91,7 @@ export default function PlotGrid(props) {
   }
 
   let deleteFunction = (id) => {
-    setGridData(this.gridData.filter((i)=>{
+    setGridData(gridData.filter((i)=>{
       return i.id!==id;
     }))
   }
