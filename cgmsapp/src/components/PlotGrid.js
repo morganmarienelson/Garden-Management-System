@@ -68,7 +68,7 @@ class PlotGrid extends React.Component {
         field: 'delete',
         headerName: 'Delete',
         width: 150,
-        renderCell: DeletePlotsBtn,
+        renderCell: DeletePlotsBtn(this.deleteFunction),
       }
     ];
     this.state = {gridData: GridTestData, columns: cols};
@@ -86,6 +86,12 @@ class PlotGrid extends React.Component {
     },] })
     console.log(this.state.gridData)
     this.forceUpdate()
+  }
+
+  deleteFunction = (id) => {
+    this.setState({gridData: this.gridData.filter((i)=>{
+      return i.id!==id;
+    })})
   }
 
 
