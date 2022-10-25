@@ -6,6 +6,7 @@ import OpenAppBtn from "./openAppBtn";
 import Applicants from "./ApplicantsState";
 import DeleteAppBtn from "./DeleteAppBtn";
 import ViewAppBtn from "./ViewAppBtn";
+import Select from "./Select";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -19,7 +20,7 @@ const columns = [
     type: "number",
     width: 90,
   },
-  { field: "PID", headerName: "PID", width: 100 },
+  { field: "PID", headerName: "PID", width: 130, renderCell: Select },
   {
     field: "view",
     headerName: "View",
@@ -35,11 +36,11 @@ const columns = [
 ];
 
 export function DataTable() {
-  const [applicant, setAppliant] = useState(Applicants);
+  const [applicant, setApplicant] = useState(Applicants);
 
   const rows = [
     {
-      id: 1,
+      id: applicant[0].id,
       lastName: applicant[0].last,
       firstName: applicant[0].first,
       isExisting: applicant[0].isExisting,
@@ -47,7 +48,7 @@ export function DataTable() {
       plotSize: applicant[0].plotSize,
     },
     {
-      id: 2,
+      id: applicant[1].id,
       lastName: applicant[1].last,
       firstName: applicant[1].first,
       isExisting: applicant[1].isExisting,

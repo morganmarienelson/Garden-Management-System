@@ -3,6 +3,7 @@ import React from "react";
 const Applicants = () => {
   return [
     {
+      id: "1",
       first: "Jason",
       last: "Smith",
       isExisting: "Yes",
@@ -13,6 +14,7 @@ const Applicants = () => {
       email: "Jason123@gmail.com",
     },
     {
+      id: "2",
       first: "Emily",
       last: "Taylor",
       isExisting: "No",
