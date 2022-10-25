@@ -12,9 +12,18 @@ import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 
-export default function AddPlotsBtn() {
+export default function AddPlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
+  // const [formState, setFormState] = React.useState(false);
+  
+  // const handleFormChange = (event, isCheckbox=false) => {
+  //   const label = event.target.id;
+  //   let value = isCheckbox ? event.target.checked : event.target.value
+  //   setFormState({...formState, [label]: value})
+  //   console.log(`${label}: ${value}`)
+  //   console.log(formState)
+  // }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +35,7 @@ export default function AddPlotsBtn() {
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
+    props.handleFormChange(event, true)
   };
 
   return (
@@ -41,52 +51,30 @@ export default function AddPlotsBtn() {
           </DialogContentText>
           
           <Divider margin>Plot Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot ID</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Plot ID"  />   
-          </FormControl>
+            <OutlinedInput id="id" label="Plot ID" onChange={props.handleFormChange}/>   
+          </FormControl> */}
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Plot Size"  />
+            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="outlined-basic" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>} />
+            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} />
           </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox">
-            <FormControlLabel control = {<Checkbox checked={checked} onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
-          </FormControl>
-         
-          <Divider>Owner Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">First Name</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner First Name"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl variant="outlined" sx={{ m: 1, width: '25ch' }} >
-            <InputLabel htmlFor="outlined-adornment-amount">Last Name</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Last Name"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Email</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Email"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Phone Number</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Phone Number"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
+          <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
+            <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
           </FormControl>
           <Divider>Additional Information</Divider>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Additional Details"  />
+            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details"  />
           </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Create</Button>
+          <Button onClick={props.handleSubmitForm}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
