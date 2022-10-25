@@ -1,13 +1,12 @@
 import * as React from 'react';
+import { useState } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import {GridTestData} from "../data/GridTestData";
 import EditPlotsBtn from './EditPlotsBtn';
 import DeletePlotsBtn from './DeletePlotsBtn';
 
-class PlotGrid extends React.Component {
-  constructor(props) {
-    super(props);
+export default function PlotGrid(props) {
     const cols = [
       { field: 'id', headerName: 'ID', width: 100, editable: false},
       {
@@ -68,13 +67,15 @@ class PlotGrid extends React.Component {
         field: 'delete',
         headerName: 'Delete',
         width: 150,
-        renderCell: DeletePlotsBtn(this.deleteFunction),
+        renderCell: () => {
+          return <DeletePlotsBtn></DeletePlotsBtn>
+        }
       }
     ];
-    this.state = {gridData: GridTestData, columns: cols};
-  }
+    const [gridData, setGridData] = useState(GridTestData);
+    const columns = cols
 
-  testFunc = () => {
+  let testFunc = () => {
     this.setState({ gridData: [...this.state.gridData, 
       {
         id: this.state.gridData.length+1,
@@ -83,37 +84,35 @@ class PlotGrid extends React.Component {
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot is right by the road.",
+        delete: this.state.gridData.length+1,
     },] })
     console.log(this.state.gridData)
     this.forceUpdate()
   }
 
-  deleteFunction = (id) => {
-    this.setState({gridData: this.gridData.filter((i)=>{
-      return i.id!==id;
-    })})
+  let deleteFunction = (id) => {
+    //this.setState({gridData: this.gridData.filter((i)=>{
+    //  return i.id!==id;
+    //})})
   }
 
 
-  render() {
     return (
       <div>
       <Box sx={{width: '92%', m: 5}}>
         <DataGrid
-          rows={this.state.gridData}
-          columns={this.state.columns}
+          rows={gridData}
+          columns={columns}
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
           checkboxSelection
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
+          columnThreshold={100}
         />
       </Box>
-      <button onClick={this.testFunc} />
+      <button onClick={testFunc} />
       </div>
     );
   };
-}
-
-export default PlotGrid;
