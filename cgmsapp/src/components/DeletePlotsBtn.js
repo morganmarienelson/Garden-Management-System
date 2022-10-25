@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DeletePlotsBtn() {
+export default function DeletePlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -19,6 +19,8 @@ export default function DeletePlotsBtn() {
   };
 
   const handleDeleteConfirm = (id) => {
+    props.deleteFunction(props.index.value);
+    //props.index.value
     // deleteFunction(id);
     setOpen(false);
   }
@@ -34,7 +36,7 @@ export default function DeletePlotsBtn() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDeleteConfirm(1)}>Delete</Button>
+          <Button onClick={handleDeleteConfirm}>Delete</Button>
         </DialogActions>
       </Dialog>
     </div>

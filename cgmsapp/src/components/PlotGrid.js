@@ -67,8 +67,8 @@ export default function PlotGrid(props) {
         field: 'delete',
         headerName: 'Delete',
         width: 150,
-        renderCell: () => {
-          return <DeletePlotsBtn></DeletePlotsBtn>
+        renderCell: (index) => {
+          return <DeletePlotsBtn index={index} deleteFunction={deleteFunction}></DeletePlotsBtn>
         }
       }
     ];
@@ -91,9 +91,9 @@ export default function PlotGrid(props) {
   }
 
   let deleteFunction = (id) => {
-    //this.setState({gridData: this.gridData.filter((i)=>{
-    //  return i.id!==id;
-    //})})
+    setGridData(this.gridData.filter((i)=>{
+      return i.id!==id;
+    }))
   }
 
 

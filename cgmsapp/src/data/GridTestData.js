@@ -6,6 +6,7 @@ export const GridTestData = [
         other: "Plot can only be used for vegetables.",
         owner: "Cathy",
         width: "75%",
+        delete: 1,
     },
     {
         id: 2,
@@ -14,6 +15,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for fruit.",
+        delete: 2,
     },
     {
         id: 3,
@@ -22,6 +24,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot currently hosts pumpkins",
+        delete: 3,
     },
     {
         id: 4,
@@ -30,6 +33,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
+        delete: 4,
     },
     {
         id: 5,
@@ -38,6 +42,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "",
+        delete: 5,
     },
     {
         id: 6,
@@ -46,6 +51,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
+        delete: 6,
     },
     {
         id: 7,
@@ -54,6 +60,7 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
+        delete: 7,
     },
     {
         id: 8,
@@ -62,5 +69,6 @@ export const GridTestData = [
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
+        delete: 8,
     },
 ];
