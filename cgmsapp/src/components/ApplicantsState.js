@@ -3,8 +3,9 @@ import React from "react";
 const Applicants = () => {
   return [
     {
-      first: "Jason",
-      last: "Smith",
+      id: 1,
+      firstName: "Jason",
+      lastName: "Smith",
       isExisting: "Yes",
       address: "1234",
       submission: "12:30",
@@ -13,8 +14,9 @@ const Applicants = () => {
       email: "Jason123@gmail.com",
     },
     {
-      first: "Emily",
-      last: "Taylor",
+      id: 2,
+      firstName: "Emily",
+      lastName: "Taylor",
       isExisting: "No",
       address: "4321",
       submission: "2:30",

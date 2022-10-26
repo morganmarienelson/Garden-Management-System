@@ -15,7 +15,11 @@ export default function DeleteAppBtn() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleReject = () => {
+    setOpen(false);
+  
 
+  };
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -28,7 +32,7 @@ export default function DeleteAppBtn() {
         <DialogContent></DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Reject</Button>
+          <Button onClick={handleReject}>Reject</Button>
         </DialogActions>
       </Dialog>
     </div>
