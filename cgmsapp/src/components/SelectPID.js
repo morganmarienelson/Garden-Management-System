@@ -28,9 +28,9 @@ export default function BasicSelect() {
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {GridTestData.map((plot) => (
-              <MenuItem value={plot.id}>
-                  {plot.id}
+        {GridTestData.filter(plot => plot.vacant.includes('true')).map(filteredPlots => (
+              <MenuItem value={filteredPlots.id}>
+                  {filteredPlots.id}
               </MenuItem>
             ))}
       </Select>
