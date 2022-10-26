@@ -15,15 +15,6 @@ import Chip from '@mui/material/Chip';
 export default function AddPlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
-  // const [formState, setFormState] = React.useState(false);
-  
-  // const handleFormChange = (event, isCheckbox=false) => {
-  //   const label = event.target.id;
-  //   let value = isCheckbox ? event.target.checked : event.target.value
-  //   setFormState({...formState, [label]: value})
-  //   console.log(`${label}: ${value}`)
-  //   console.log(formState)
-  // }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,7 +65,7 @@ export default function AddPlotsBtn(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={props.handleSubmitForm}>Create</Button>
+          <Button onClick={() => props.handleSubmitForm(setOpen)}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

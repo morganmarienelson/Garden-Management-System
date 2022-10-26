@@ -22,7 +22,7 @@ export default function Plots(){
       console.log(formState)
     }
 
-    const handleSubmitForm = () => {
+    const handleSubmitForm = (setOpen) => {
         setGridData([...gridData, 
               {
                 id: gridData.length+1,
@@ -33,6 +33,7 @@ export default function Plots(){
                 other: formState.other,
             },])
         console.log(gridData)
+        setOpen(false)
     }
 
     const tabList = [
