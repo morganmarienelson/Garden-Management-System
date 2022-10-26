@@ -2,7 +2,7 @@ import EditPlotsBtn from '../components/EditPlotsBtn';
 import DeletePlotsBtn from '../components/DeletePlotsBtn';
 
 const PlotDataColumns = [
-    { field: 'id', headerName: 'ID', width: 100, editable: false},
+    { field: 'id', headerName: 'ID', width: 50, editable: false},
     {
       field: 'dimensions',
       headerName: 'Dimensions',
@@ -18,49 +18,37 @@ const PlotDataColumns = [
     {
       field: 'vacant',
       headerName: 'Vacant',
-      width: 100,
+      width: 80,
       editable: true,
     },
     {
-      field: 'owner firstName',
+      field: 'ownerfirstName',
       headerName: 'First Name',
       width: 100,
       editable: true,
     },
     {
-      field: 'owner lastName',
+      field: 'ownerlastName',
       headerName: 'Last Name',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'owner email',
-      headerName: 'Email',
-      width: 100,
-      editable: true,
-    },
-    {
-      field: 'owner phone',
-      headerName: 'Phone',
       width: 100,
       editable: true,
     },
     {
       field: 'other',
       headerName: 'Other Notes',
-      width: 400,
+      width: 250,
       editable: false,
     },
     {
       field: 'edit',
       headerName: 'Edit',
-      width: 150,
+      width: 130,
       renderCell: EditPlotsBtn,
     },
     {
       field: 'delete',
       headerName: 'Delete',
-      width: 150,
+      width: 130,
       renderCell: DeletePlotsBtn,
     }
   ];

@@ -4,65 +4,96 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeclinedTable from "./backlogApplications";
 import OpenAppBtn from "./openAppBtn";
 import Applicants from "./ApplicantsState";
-import DeleteAppBtn from "./DeleteAppBtn";
 import ViewAppBtn from "./ViewAppBtn";
 import SaveChangesAppBtn from "./saveChangesBtn";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
-  { field: "isExisting", headerName: " Existing App", width: 130 },
-  { field: "st", headerName: "Submission", width: 90, type: "number" },
-  {
-    field: "plotSize",
-    headerName: "PlotSize",
-    type: "number",
-    width: 90,
-  },
-  { field: "PID", headerName: "PID", width: 100 },
-  {
-    field: "view",
-    headerName: "View",
-    width: 130,
-    renderCell: ViewAppBtn,
-  },
-  {
-    field: "reject",
-    headerName: "Reject",
-    width: 130,
-    renderCell: DeleteAppBtn,
-  },
-];
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import SelectPID from "./SelectPID";
 
 export function DataTable() {
-  const [applicant, setAppliant] = useState(Applicants);
-
-  const rows = [
+  const [applicant, setApplicant] = useState(Applicants);
+  const [selected, setSelected] = React.useState([]);
+  const isSelected = (firstName) => selected.indexOf(firstName) !== -1;
+  const columns = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "firstName", headerName: "First name", width: 130 },
+    { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "isExisting", headerName: " Existing App", width: 130 },
+    { field: "submission", headerName: "Submission", width: 90, type: "number" },
     {
-      id: 1,
-      lastName: applicant[0].last,
-      firstName: applicant[0].first,
-      isExisting: applicant[0].isExisting,
-      st: applicant[0].submission,
-      plotSize: applicant[0].plotSize,
+      field: "plotSize",
+      headerName: "PlotSize",
+      type: "number",
+      width: 90,
     },
     {
-      id: 2,
-      lastName: applicant[1].last,
-      firstName: applicant[1].first,
-      isExisting: applicant[1].isExisting,
-      st: applicant[1].submission,
-      plotSize: applicant[1].plotSize,
+    field: "PID",
+    headerName: "PID",
+    width: 150,
+    renderCell: SelectPID,
+  },
+
+    {
+      field: "view",
+      headerName: "View",
+      width: 130,
+      renderCell: ViewAppBtn,
+    },
+    {
+      field: "reject",
+      headerName: "Reject",
+      width: 130,
+      renderCell: DeleteAppBtn,
     },
   ];
+  //delete row function
+  const handleDelete = (id) => {
+    const newRows = applicant.filter((row) => row.id !== id);
+    setApplicant(newRows);
+  };
+
+  function DeleteAppBtn() {
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    const handleReject = () => {
+      const id = selected;
+      handleDelete(id);
+    };
+    return (
+      <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Reject
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            Are you sure you want to reject this application?
+          </DialogTitle>
+          <DialogContent></DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleReject}>Reject</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 
   return (
     <div>
       <SaveChangesAppBtn />
     <div style={{ height: 400, width: "100%" , marginTop: 30}}>
       <DataGrid
-        rows={rows}
+        rows={applicant} onCellClick={(e) => setSelected(e.row.id)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
