@@ -6,6 +6,7 @@ import OpenAppBtn from "./openAppBtn";
 import Applicants from "./ApplicantsState";
 import DeleteAppBtn from "./DeleteAppBtn";
 import ViewAppBtn from "./ViewAppBtn";
+import SaveChangesAppBtn from "./saveChangesBtn";
 
 const columns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -57,13 +58,16 @@ export function DataTable() {
   ];
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div>
+      <SaveChangesAppBtn />
+    <div style={{ height: 400, width: "100%" , marginTop: 30}}>
       <DataGrid
         rows={rows}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
       />
+    </div>
     </div>
   );
 }

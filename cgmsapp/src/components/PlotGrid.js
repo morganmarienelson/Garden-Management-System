@@ -7,7 +7,6 @@ class PlotGrid extends React.Component {
     super(props);
   }
 
-
   render() {
     return (
       <div>
@@ -19,7 +18,6 @@ class PlotGrid extends React.Component {
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
-          checkboxSelection
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
         />
