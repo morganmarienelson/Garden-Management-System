@@ -10,7 +10,6 @@ import { Checkbox, FormControlLabel, FormHelperText, OutlinedInput } from '@mui/
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
-import Chip from '@mui/material/Chip';
 
 export default function AddPlotsBtn() {
   const [open, setOpen] = React.useState(false);

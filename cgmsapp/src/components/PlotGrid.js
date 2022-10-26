@@ -29,33 +29,21 @@ class PlotGrid extends React.Component {
         editable: true,
       },
       {
-        field: 'owner firstName',
+        field: 'ownerfirstName',
         headerName: 'First Name',
         width: 100,
         editable: true,
       },
       {
-        field: 'owner lastName',
+        field: 'ownerlastName',
         headerName: 'Last Name',
-        width: 100,
-        editable: true,
-      },
-      {
-        field: 'owner email',
-        headerName: 'Email',
-        width: 100,
-        editable: true,
-      },
-      {
-        field: 'owner phone',
-        headerName: 'Phone',
         width: 100,
         editable: true,
       },
       {
         field: 'other',
         headerName: 'Other Notes',
-        width: 400,
+        width: 350,
         editable: false,
       },
       {
@@ -78,7 +66,9 @@ class PlotGrid extends React.Component {
     this.setState({ gridData: [...this.state.gridData, 
       {
         id: this.state.gridData.length+1,
-        owner: "Vacant",
+        vaccant: false,
+        ownerlastName: "Mike",
+        ownerfirstName: "Wolff",
         width: "25%",
         dimensions: "20' x 20'",
         feeAmount: 20,
@@ -99,7 +89,6 @@ class PlotGrid extends React.Component {
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
-          checkboxSelection
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
         />

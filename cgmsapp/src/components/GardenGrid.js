@@ -15,10 +15,10 @@ export default function GardenGrid (){
     }
 
     function setPlotColor(plot) {
-        if (plot.owner === "Vacant"){
-            return "#E5E4E2";
+        if (plot.vacant === "true") {
+            return "#818589";
         } else {
-            return "#A9A9A9";
+            return "#a9a9a9";
         }
     }
 
@@ -27,7 +27,7 @@ export default function GardenGrid (){
         <Card title="Garden Layout" hoverable={false}>
             {GridTestData.map((plot) => (
               <Card.Grid onClick={() => onPlotClick(plot)} style={{background: setPlotColor(plot), width: plot.width}}>
-                  {plot.owner}
+                  {plot.ownerfirstName} {plot.ownerlastName}
               </Card.Grid>
             ))}
         </Card>
