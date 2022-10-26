@@ -18,6 +18,10 @@ export default function EditPlotsBtn() {
     setOpen(false);
   };
 
+  const handleEditConfirm = () => {
+
+  };
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -45,7 +49,7 @@ export default function EditPlotsBtn() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Create</Button>
+          <Button onClick={handleEditConfirm}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
