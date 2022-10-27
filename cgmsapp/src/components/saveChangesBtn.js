@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function DeleteAppBtn() {
+export default function SaveChangesAppBtn() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -15,24 +15,20 @@ export default function DeleteAppBtn() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleReject = () => {
-    setOpen(false);
-  
 
-  };
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
-        Reject
+        Save Changes
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
-          Are you sure you want to reject this application?
+            Are you sure you want to save these changes?
         </DialogTitle>
         <DialogContent></DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleReject}>Reject</Button>
+          <Button onClick={handleClose}>Save Changes</Button>
         </DialogActions>
       </Dialog>
     </div>

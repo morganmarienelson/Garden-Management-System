@@ -2,9 +2,6 @@ import * as React from 'react';
 import { useState } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-import {GridTestData} from "../data/GridTestData";
-import EditPlotsBtn from './EditPlotsBtn';
-import DeletePlotsBtn from './DeletePlotsBtn';
 
 export default function PlotGrid(props) {
     const cols = [
@@ -97,7 +94,6 @@ export default function PlotGrid(props) {
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
-          checkboxSelection
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
           columnThreshold={100}
