@@ -11,12 +11,6 @@ export default function DeleteAppBtn() {
 
   const handleClickOpen = () => {
     setOpen(true);
-    // const id = applicant.id;
-    // setApplicant((current) =>
-    //   current.filter((applicant) => {
-    //     return applicant.id !== id;
-    //   })
-    // );
   };
 
   const handleClose = () => {
