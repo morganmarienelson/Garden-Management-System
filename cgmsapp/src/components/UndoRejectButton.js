@@ -30,7 +30,7 @@ export default function UndoRejectButton(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => handleUndoReject(props.index.value, handleClose)}>Re-Open</Button>
+          <Button onClick={() => props.handleUndoReject(props.index.value, handleClose)}>Re-Open</Button>
         </DialogActions>
       </Dialog>
     </div>
