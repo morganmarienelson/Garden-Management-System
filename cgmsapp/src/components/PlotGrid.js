@@ -40,18 +40,6 @@ export default function PlotGrid(props) {
         editable: true,
       },
       {
-        field: 'owner email',
-        headerName: 'Email',
-        width: 100,
-        editable: true,
-      },
-      {
-        field: 'owner phone',
-        headerName: 'Phone',
-        width: 100,
-        editable: true,
-      },
-      {
         field: 'other',
         headerName: 'Other Notes',
         width: 400,

@@ -31,7 +31,8 @@ export default function Plots(){
                 dimensions: formState.dimensions,
                 feeAmount: formState.feeAmount,
                 other: formState.other,
-            },])
+            },
+        ])
         console.log(gridData)
         setOpen(false)
     }
