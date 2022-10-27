@@ -61,7 +61,9 @@ export default function PlotGrid(props) {
         field: 'edit',
         headerName: 'Edit',
         width: 150,
-        renderCell: EditPlotsBtn,
+        renderCell: (index) => {
+          return <EditPlotsBtn index={index} deleteFunction={deleteFunction}></EditPlotsBtn>
+        }
       },
       {
         field: 'delete',
@@ -75,25 +77,14 @@ export default function PlotGrid(props) {
     const [gridData, setGridData] = useState(GridTestData);
     const columns = cols
 
-  let testFunc = () => {
-    this.setState({ gridData: [...this.state.gridData, 
-      {
-        id: this.state.gridData.length+1,
-        owner: "Vacant",
-        width: "25%",
-        dimensions: "20' x 20'",
-        feeAmount: 20,
-        other: "Plot is right by the road.",
-        delete: this.state.gridData.length+1,
-    },] })
-    console.log(this.state.gridData)
-    this.forceUpdate()
-  }
-
   let deleteFunction = (id) => {
     setGridData(gridData.filter((i)=>{
       return i.id!==id;
     }))
+  }
+
+  let editFunction = (id) => {
+    
   }
 
 
@@ -112,7 +103,6 @@ export default function PlotGrid(props) {
           columnThreshold={100}
         />
       </Box>
-      <button onClick={testFunc} />
       </div>
     );
   };
