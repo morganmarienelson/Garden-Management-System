@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useState } from "react";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import EditPlotsBtn from './EditPlotsBtn';
+import DeletePlotsBtn from './DeletePlotsBtn';
+import { GridTestData } from '../data/GridTestData';
 
 export default function PlotGrid(props) {
     const cols = [

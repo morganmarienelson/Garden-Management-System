@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
 import { Checkbox, FormControlLabel, FormHelperText, OutlinedInput } from '@mui/material';
@@ -40,51 +39,26 @@ export default function EditPlotsBtn(props) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit Plot</DialogTitle>
         <DialogContent>
-        <DialogContentText sx={{mb: 2}}>
-          </DialogContentText>
-          
           <Divider margin>Plot Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot ID</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Plot ID"  />   
-          </FormControl>
+            <OutlinedInput id="id" label="Plot ID" onChange={props.handleFormChange}/>   
+          </FormControl> */}
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Plot Size"  />
+            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="outlined-basic" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>} />
+            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} />
           </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox">
-            <FormControlLabel control = {<Checkbox checked={checked} onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
-          </FormControl>
-         
-          <Divider>Owner Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">First Name</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner First Name"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl variant="outlined" sx={{ m: 1, width: '25ch' }} >
-            <InputLabel htmlFor="outlined-adornment-amount">Last Name</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Last Name"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Email</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Email"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Phone Number</InputLabel>
-            <OutlinedInput disabled = {checked === true} id="outlined-adornment-amount" label="Owner Phone Number"  />
-            <FormHelperText>{checked === true ? "Vacant Lot" : ""}</FormHelperText>
+          <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
+            <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
           </FormControl>
           <Divider>Additional Information</Divider>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="outlined-adornment-amount" label="Additional Details"  />
+            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details"  />
           </FormControl>
         </DialogContent>
         <DialogActions>
