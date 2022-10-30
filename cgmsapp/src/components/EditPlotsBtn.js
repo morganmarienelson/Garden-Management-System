@@ -26,7 +26,7 @@ export default function EditPlotsBtn(props) {
     setChecked(event.target.checked);
   };
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = (id) => {
     props.editFunction(props.index.value);
     setOpen(false);
   };

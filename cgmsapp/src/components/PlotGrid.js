@@ -40,18 +40,6 @@ export default function PlotGrid(props) {
         editable: true,
       },
       {
-        field: 'owner email',
-        headerName: 'Email',
-        width: 100,
-        editable: true,
-      },
-      {
-        field: 'owner phone',
-        headerName: 'Phone',
-        width: 100,
-        editable: true,
-      },
-      {
         field: 'other',
         headerName: 'Other Notes',
         width: 400,
@@ -62,7 +50,7 @@ export default function PlotGrid(props) {
         headerName: 'Edit',
         width: 150,
         renderCell: (index) => {
-          return <EditPlotsBtn index={index} deleteFunction={deleteFunction}></EditPlotsBtn>
+          return <EditPlotsBtn index={index} editFunction={editFunction}></EditPlotsBtn>
         }
       },
       {
@@ -78,13 +66,14 @@ export default function PlotGrid(props) {
     const columns = cols
 
   let deleteFunction = (id) => {
+    console.log(id);
     setGridData(gridData.filter((i)=>{
       return i.id!==id;
     }))
   }
 
   let editFunction = (id) => {
-    
+    console.log(id);
   }
 
 
