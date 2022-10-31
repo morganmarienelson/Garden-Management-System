@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider';
 export default function EditPlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
+  const rowData = props.getRowData(props.index.value);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,11 +47,11 @@ export default function EditPlotsBtn(props) {
           </FormControl> */}
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange}/>
+            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange} defaultValue={rowData.dimensions}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} />
+            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} defaultValue={rowData.feeAmount}/>
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
             <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
@@ -58,7 +59,7 @@ export default function EditPlotsBtn(props) {
           <Divider>Additional Information</Divider>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details"  />
+            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details" defaultValue={rowData.other} />
           </FormControl>
         </DialogContent>
         <DialogActions>

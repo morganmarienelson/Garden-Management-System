@@ -50,7 +50,7 @@ export default function PlotGrid(props) {
         headerName: 'Edit',
         width: 150,
         renderCell: (index) => {
-          return <EditPlotsBtn index={index} editFunction={editFunction}></EditPlotsBtn>
+          return <EditPlotsBtn index={index} editFunction={editFunction} getRowData={getRowData}></EditPlotsBtn>
         }
       },
       {
@@ -66,14 +66,19 @@ export default function PlotGrid(props) {
     const columns = cols
 
   let deleteFunction = (id) => {
-    console.log(id);
+    //console.log(id);
     setGridData(gridData.filter((i)=>{
       return i.id!==id;
     }))
   }
 
+  let getRowData = (id) => {
+    const foundData = gridData.find((data) => { return data.id === id });
+    return foundData;
+  }
+
   let editFunction = (id) => {
-    console.log(id);
+    
   }
 
 
