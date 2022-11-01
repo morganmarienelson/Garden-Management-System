@@ -78,7 +78,12 @@ export default function PlotGrid(props) {
   }
 
   let editFunction = (id) => {
-    
+    setGridData([...gridData,
+      {
+      dimensions: formState.dimensions,
+      feeAmount: formState.feeAmount,
+      other: formState.other,
+      },])
   }
 
 
