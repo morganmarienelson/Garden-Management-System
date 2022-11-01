@@ -19,7 +19,8 @@ export default function DeletePlotsBtn(props) {
   };
 
   const handleDeleteConfirm = (id) => {
-    props.deleteFunction(props.index.value);
+    console.log(props.id)
+    props.deleteFunction(props.id);
     setOpen(false);
   }
 
