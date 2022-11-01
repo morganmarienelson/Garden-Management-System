@@ -50,7 +50,7 @@ export default function PlotGrid(props) {
         headerName: 'Edit',
         width: 150,
         renderCell: (index) => {
-          return <EditPlotsBtn index={index} editFunction={editFunction} getRowData={getRowData}></EditPlotsBtn>
+          return <EditPlotsBtn index={index} getRowData={getRowData}></EditPlotsBtn>
         }
       },
       {
@@ -76,16 +76,6 @@ export default function PlotGrid(props) {
     const foundData = gridData.find((data) => { return data.id === id });
     return foundData;
   }
-
-  let editFunction = (id) => {
-    setGridData([...gridData,
-      {
-      dimensions: formState.dimensions,
-      feeAmount: formState.feeAmount,
-      other: formState.other,
-      },])
-  }
-
 
     return (
       <div>

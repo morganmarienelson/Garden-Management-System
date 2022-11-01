@@ -5,15 +5,18 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Checkbox, FormControlLabel, FormHelperText, OutlinedInput } from '@mui/material';
+import { Checkbox, FormControlLabel, OutlinedInput } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
+import { GridTestData } from '../data/GridTestData';
 
 export default function EditPlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
   const rowData = props.getRowData(props.index.value);
+  const [formState, setFormState] = React.useState(false);
+  const [gridData, setGridData] = React.useState(GridTestData);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,14 +26,25 @@ export default function EditPlotsBtn(props) {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
+  const handleEdit = (event) =>{
+    const label = event.target.id;
+    let value = event.target.value;
+    setFormState({...formState, [label]: value})
+    console.log(`${label}: ${value}`)
+    console.log(formState)
+    
+  }
 
-  const handleEditConfirm = (id) => {
-    props.editFunction(props.index.value);
+  const handleSave = (id) => {
+    setGridData([...gridData, 
+      {
+        id: formState.id,
+        dimensions: formState.dimensions,
+        feeAmount: formState.feeAmount,
+        other: formState.other,
+    },])
     setOpen(false);
-  };
+  }
 
   return (
     <div>
@@ -47,24 +61,24 @@ export default function EditPlotsBtn(props) {
           </FormControl> */}
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange} defaultValue={rowData.dimensions}/>
+            <OutlinedInput id="dimensions" label="Plot Size"  defaultValue={rowData.dimensions} onChange={handleEdit}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} defaultValue={rowData.feeAmount}/>
+            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  defaultValue={rowData.feeAmount} onChange={handleEdit}/>
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
-            <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
+            <FormControlLabel control = {<Checkbox checked={checked} id="vacant"/>} label = "Vacant Lot"></FormControlLabel>
           </FormControl>
           <Divider>Additional Information</Divider>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details" defaultValue={rowData.other} />
+            <OutlinedInput id="other" label="Additional Details" defaultValue={rowData.other} onChange={handleEdit}/>
           </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleEditConfirm}>Save</Button>
+          <Button onClick={handleSave}>Save</Button>
         </DialogActions>
       </Dialog>
     </div>
