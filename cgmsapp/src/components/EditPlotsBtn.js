@@ -66,7 +66,7 @@ export default function EditPlotsBtn(props) {
             <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
           </FormControl>
           <Divider>Additional Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <FormControl sx={{ m: 1, width: '60ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
             <OutlinedInput id="other" defaultValue={rowData.other} onChange={handleFormChange} label="Additional Details"  />
           </FormControl>

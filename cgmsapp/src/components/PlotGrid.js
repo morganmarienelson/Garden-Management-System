@@ -50,7 +50,7 @@ export default function PlotGrid(props) {
         headerName: 'Edit',
         width: 150,
         renderCell: (params) => {
-          return <EditPlotsBtn id={params.row.id} editFunction={editFunction} loadRowData={loadRowData}></EditPlotsBtn>
+          return <EditPlotsBtn id={params.row.id} editFunction={props.editFunction} loadRowData={props.loadRowData}></EditPlotsBtn>
         }
       },
       {
@@ -58,50 +58,23 @@ export default function PlotGrid(props) {
         headerName: 'Delete',
         width: 150,
         renderCell: (params) => {
-          return <DeletePlotsBtn id={params.row.id} deleteFunction={deleteFunction}></DeletePlotsBtn>
+          return <DeletePlotsBtn id={params.row.id} deleteFunction={props.deleteFunction}></DeletePlotsBtn>
         }
       }
     ];
-    const [gridData, setGridData] = useState(GridTestData);
-    const columns = cols
-
-  let deleteFunction = (id) => {
-    setGridData(gridData.filter((i)=>{
-      return i.id !== id;
-    }))
-  }
-
-  let editDoubleClickFunction = (params, event) => {
-    let temp = gridData.slice()
-    temp[temp.findIndex(x => x.id === params.row.id)][params.field] = event.target.value
-    setGridData(temp)
-    console.log(gridData)
-  }
-
-  let editFunction = (editedRow) => {
-    let temp = gridData.slice()
-    temp[temp.findIndex(x => x.id == editedRow.id)] = editedRow
-    setGridData(temp)
-    console.log(gridData)
-  }
-
-  let loadRowData = (id) => {
-    return gridData[gridData.findIndex(x => x.id == id)]
-  }
-
 
     return (
       <div>
       <Box sx={{width: '92%', m: 5}}>
         <DataGrid
-          rows={gridData}
-          columns={columns}
+          rows={props.gridData}
+          columns={cols}
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
-          onCellEditStop={(params, event) => {editDoubleClickFunction(params, event)}}
+          onCellEditStop={(params, event) => {props.editDoubleClickFunction(params, event)}}
           columnThreshold={100}
         />
       </Box>
