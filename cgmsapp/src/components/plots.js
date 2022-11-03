@@ -28,6 +28,7 @@ export default function Plots(){
                 id: gridData.length+1,
                 owner: "Vacant",
                 width: "25%",
+                vacant: true,
                 dimensions: formState.dimensions,
                 feeAmount: formState.feeAmount,
                 other: formState.other,
