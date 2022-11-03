@@ -28,6 +28,7 @@ export default function Plots(){
                 id: gridData.length+1,
                 owner: "Vacant",
                 width: "25%",
+                vacant: true,
                 dimensions: formState.dimensions,
                 feeAmount: formState.feeAmount,
                 other: formState.other,
@@ -36,6 +37,32 @@ export default function Plots(){
         console.log(gridData)
         setOpen(false)
     }
+
+    //
+    let deleteFunction = (id) => {
+        setGridData(gridData.filter((i)=>{
+          return i.id !== id;
+        }))
+      }
+    
+      let editDoubleClickFunction = (params, event) => {
+        let temp = gridData.slice()
+        temp[temp.findIndex(x => x.id === params.row.id)][params.field] = event.target.value
+        setGridData(temp)
+        console.log(gridData)
+      }
+    
+      let editFunction = (editedRow) => {
+        let temp = gridData.slice()
+        temp[temp.findIndex(x => x.id == editedRow.id)] = editedRow
+        setGridData(temp)
+        console.log(gridData)
+      }
+    
+      let loadRowData = (id) => {
+        return gridData[gridData.findIndex(x => x.id == id)]
+      }
+    //
 
     const tabList = [
         {
@@ -76,7 +103,14 @@ export default function Plots(){
                 ) : (
                     <>
                     <AddPlotsBtn handleSubmitForm={handleSubmitForm} handleFormChange={handleFormChange}/>
-                    <PlotGrid columns={columns} gridData={gridData}/>
+                    <PlotGrid 
+                        columns={columns} 
+                        gridData={gridData} 
+                        deleteFunction={deleteFunction} 
+                        editDoubleClickFunction={editDoubleClickFunction}
+                        editFunction={editFunction}
+                        loadRowData={loadRowData}
+                    />
                     </>
                 )}
             </Card>

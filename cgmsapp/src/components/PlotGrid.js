@@ -13,7 +13,7 @@ export default function PlotGrid(props) {
         field: 'dimensions',
         headerName: 'Dimensions',
         width: 100,
-        editable: false,
+        editable: true,
       },
       {
         field: 'feeAmount',
@@ -25,68 +25,56 @@ export default function PlotGrid(props) {
         field: 'vacant',
         headerName: 'Vacant',
         width: 100,
-        editable: true,
+        editable: false,
       },
       {
         field: 'owner firstName',
         headerName: 'First Name',
         width: 100,
-        editable: true,
+        editable: false,
       },
       {
         field: 'owner lastName',
         headerName: 'Last Name',
         width: 100,
-        editable: true,
+        editable: false,
       },
       {
         field: 'other',
         headerName: 'Other Notes',
         width: 400,
-        editable: false,
+        editable: true,
       },
       {
         field: 'edit',
         headerName: 'Edit',
         width: 150,
-        renderCell: (index) => {
-          return <EditPlotsBtn index={index} deleteFunction={deleteFunction}></EditPlotsBtn>
+        renderCell: (params) => {
+          return <EditPlotsBtn id={params.row.id} editFunction={props.editFunction} loadRowData={props.loadRowData}></EditPlotsBtn>
         }
       },
       {
         field: 'delete',
         headerName: 'Delete',
         width: 150,
-        renderCell: (index) => {
-          return <DeletePlotsBtn index={index} deleteFunction={deleteFunction}></DeletePlotsBtn>
+        renderCell: (params) => {
+          return <DeletePlotsBtn id={params.row.id} deleteFunction={props.deleteFunction}></DeletePlotsBtn>
         }
       }
     ];
-    const [gridData, setGridData] = useState(GridTestData);
-    const columns = cols
-
-  let deleteFunction = (id) => {
-    setGridData(gridData.filter((i)=>{
-      return i.id!==id;
-    }))
-  }
-
-  let editFunction = (id) => {
-    
-  }
-
 
     return (
       <div>
       <Box sx={{width: '92%', m: 5}}>
         <DataGrid
-          rows={gridData}
-          columns={columns}
+          rows={props.gridData}
+          columns={cols}
           autoHeight={true}
           pageSize={8}
           rowsPerPageOptions={[5]}
           disableSelectionOnClick
           experimentalFeatures={{ newEditingApi: true }}
+          onCellEditStop={(params, event) => {props.editDoubleClickFunction(params, event)}}
           columnThreshold={100}
         />
       </Box>

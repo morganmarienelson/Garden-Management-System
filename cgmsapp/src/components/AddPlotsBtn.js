@@ -53,11 +53,11 @@ export default function AddPlotsBtn(props) {
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
             <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} />
           </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
+          {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
             <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
-          </FormControl>
+          </FormControl> */}
           <Divider>Additional Information</Divider>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <FormControl sx={{ m: 1, width: '60ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
             <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details"  />
           </FormControl>
@@ -70,5 +70,3 @@ export default function AddPlotsBtn(props) {
     </div>
   );
 }
-
-
