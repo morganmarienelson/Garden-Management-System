@@ -20,7 +20,7 @@ import {useNavigate} from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import Login from '@mui/icons-material/Login';
 import LocalFloristSharpIcon from '@mui/icons-material/LocalFloristSharp';
 import AccountCircleSharpIcon from '@mui/icons-material/AccountCircleSharp';
 import MailIcon from '@mui/icons-material/Mail';
@@ -84,6 +84,11 @@ const ResponsiveAppBar = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const navigateLogin = () => {
+    // 👇️ navigate to /
+    navigate('/Login');
   };
 
   function TabPanel(props) {
@@ -283,9 +288,11 @@ const ResponsiveAppBar = () => {
         </MenuItem>
         <MenuItem>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Login fontSize="small" />
           </ListItemIcon>
-          Logout
+          <ListItemButton onClick = {navigateLogin}>
+          Login
+          </ListItemButton>
         </MenuItem>
       </Menu>
       <Menu
