@@ -2,6 +2,7 @@ export const GridTestData = [
     {
         id: 1,
         vacant: false,
+        vacantString: "false",
         dimensions: "20' x 20'",
         feeAmount: 20,
         other: "Plot can only be used for vegetables.",
@@ -13,6 +14,7 @@ export const GridTestData = [
     {
         id: 2,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Jacob",
         ownerlastName: "Anderson",
         width: "25%",
@@ -24,6 +26,7 @@ export const GridTestData = [
     {
         id: 3,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Tiffany",
         ownerlastName: "Smith",
         width: "25%",
@@ -35,6 +38,7 @@ export const GridTestData = [
     {
         id: 4,
         vacant: true,
+        vacantString: "true",
         ownerfirstName: null,
         ownerlastName: null,
         width: "25%",
@@ -46,6 +50,7 @@ export const GridTestData = [
     {
         id: 5,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Jim",
         ownerlastName: "Johnson",
         width: "25%",
@@ -57,6 +62,7 @@ export const GridTestData = [
     {
         id: 6,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Sally",
         ownerlastName: "Hanson",
         width: "25%",
@@ -68,6 +74,7 @@ export const GridTestData = [
     {
         id: 7,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Luke",
         ownerlastName: "Larson",
         width: "25%",
@@ -79,6 +86,7 @@ export const GridTestData = [
     {
         id: 8,
         vacant: false,
+        vacantString: "false",
         ownerfirstName: "Jacob",
         ownerlastName: "Marley",
         width: "25%",
