@@ -7,6 +7,10 @@ import Plots from './components/plots';
 import Footer from './components/footer';
 import Mail from './components/mail';
 import QuestionForum from './components/questionForum';
+import Button from '@mui/material/Button';
+import apiClient from './api/apiClient';
+import Login from './components/login';
+
 
 const theme = createTheme({
   palette: {
@@ -40,6 +44,14 @@ const theme = createTheme({
 });
 
 function App() {
+//EXAMPLE OF API CALL
+  //  function apiClick () {
+  //   apiClient.get('/v1/balancebook/get/all')
+  //   .then((response) => {
+  //     console.log(response);
+  //   }
+  //   )
+  // };
 
   return (
     <div>
@@ -50,6 +62,7 @@ function App() {
       <Route path="/Applications" element={<Applications />} />
       <Route path="/Mail" element={<Mail />} />
       <Route path = "/Forum" element={<QuestionForum />} />
+      <Route path = "/Login" element={<Login />} />
     </Routes>
     <Footer/>
     </ThemeProvider>
