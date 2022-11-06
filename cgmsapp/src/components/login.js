@@ -14,13 +14,12 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 
 
-export default function SignIn() {
-    const [username, setUsername] = React.useState('');
+export default function SignIn({userName, setUserName}) {
     const [password, setPassword] = React.useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`http://159.223.113.61:8080/UCGBTEST/auth/login/`, {username: `${username}`, password: `${password}`})
+    axios.post(`http://159.223.113.61:8080/UCGBTEST/auth/login/`, {username: `${userName}`, password: `${password}`})
         .then (response => { 
             const token = response.data;
             localStorage.setItem('token', token);
@@ -58,7 +57,8 @@ export default function SignIn() {
               label="Username"
               name="username"
               autoFocus
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={(event) => setUserName(event.target.value)
+              }
             />
             <TextField
               margin="normal"

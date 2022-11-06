@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { createTheme , ThemeProvider} from '@mui/material/styles';
 import PersistentDrawerLeft from './components/navbar';
 import {Routes, Route} from 'react-router-dom';
@@ -44,6 +44,7 @@ const theme = createTheme({
 });
 
 function App() {
+  const [userName, setUserName] = React.useState('');
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -60,9 +61,9 @@ function App() {
     <Routes>
       <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={<Mail />} />
+      <Route path="/Mail" element={userName ? <Mail userName={userName} /> : <Login setUserName={setUserName} userName={userName}/>} />
       <Route path = "/Forum" element={<QuestionForum />} />
-      <Route path = "/Login" element={<Login />} />
+      <Route path = "/Login" element={<Login setUserName={setUserName} userName={userName}/>} />
     </Routes>
     <Footer/>
     </ThemeProvider>
