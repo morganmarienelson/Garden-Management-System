@@ -44,7 +44,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [userName, setUserName] = React.useState('');
+  const [username, setUserName] = React.useState('');
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -61,9 +61,9 @@ function App() {
     <Routes>
       <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={userName ? <Mail userName={userName} /> : <Login setUserName={setUserName} userName={userName}/>} />
+      <Route path="/Mail" element={username ? <Mail username={username} /> : <Login setUserName={setUserName} userName={username}/>} />
       <Route path = "/Forum" element={<QuestionForum />} />
-      <Route path = "/Login" element={<Login setUserName={setUserName} userName={userName}/>} />
+      <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>
     <Footer/>
     </ThemeProvider>

@@ -1,7 +1,7 @@
 import React from "react"
 
 
-export default function Contacts({userName}) {
+export default function Contacts({username}) {
     return (
         <div>
             Contacts

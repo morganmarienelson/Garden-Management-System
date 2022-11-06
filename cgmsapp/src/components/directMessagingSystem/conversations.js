@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function Conversations({userName}) {
+export default function Conversations({username}) {
     return (
         <div>
             Conversations

@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function NewConversationModal({userName}) {
+export default function NewConversationModal({closeModal}) {
     return (
         <div>
             Conversations
