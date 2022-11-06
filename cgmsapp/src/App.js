@@ -10,6 +10,8 @@ import QuestionForum from './components/questionForum';
 import Button from '@mui/material/Button';
 import apiClient from './api/apiClient';
 import Login from './components/login';
+import useLocalStorage from "./hooks/useLocalStorage";
+import {ContactsProvider} from "./context/ContactsProvider";
 
 
 const theme = createTheme({
@@ -44,7 +46,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [username, setUserName] = React.useState('');
+  const [username, setUserName] = useLocalStorage('username');
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -54,6 +56,11 @@ function App() {
   //   )
   // };
 
+  const mail = (
+      <ContactsProvider>
+        <Mail username={username} />
+      </ContactsProvider>
+  )
   return (
     <div>
     <ThemeProvider theme={theme}>
@@ -61,7 +68,7 @@ function App() {
     <Routes>
       <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={username ? <Mail username={username} /> : <Login setUserName={setUserName} userName={username}/>} />
+      <Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />
       <Route path = "/Forum" element={<QuestionForum />} />
       <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>
