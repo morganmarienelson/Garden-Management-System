@@ -12,6 +12,7 @@ import apiClient from './api/apiClient';
 import Login from './components/login';
 import useLocalStorage from "./hooks/useLocalStorage";
 import {ContactsProvider} from "./context/ContactsProvider";
+import {ConversationsProvider} from "./context/ConversationsProvider";
 
 
 const theme = createTheme({
@@ -58,7 +59,9 @@ function App() {
 
   const mail = (
       <ContactsProvider>
+        <ConversationsProvider>
         <Mail username={username} />
+        </ConversationsProvider>
       </ContactsProvider>
   )
   return (
