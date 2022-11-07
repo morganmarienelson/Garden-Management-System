@@ -59,7 +59,7 @@ function App() {
 
   const mail = (
       <ContactsProvider>
-        <ConversationsProvider>
+        <ConversationsProvider username={username}>
         <Mail username={username} />
         </ConversationsProvider>
       </ContactsProvider>
