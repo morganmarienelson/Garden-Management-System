@@ -11,7 +11,7 @@ export function useConversations(){
 export function ConversationsProvider({children}){
     const [conversations, setConversations] = useLocalStorage('conversations', []);
     const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
-    const {contacts} = useContacts()
+    const {contacts} = useContacts();
 
     function createConversation(recipients){
         setConversations(prevConversations => {
@@ -28,11 +28,13 @@ export function ConversationsProvider({children}){
             return { username: recipient, name}
         })
         const selected = index === selectedConversationIndex
-        return { ...conversation, recipients, selected}
+        return { ...conversation, recipients, selected }
     })
 
     const value = {
         conversations: formattedConversations,
+        selectedConversation: formattedConversations
+        [selectedConversationIndex],
         selectedConversationIndex: setSelectedConversationIndex,
         createConversation
     }

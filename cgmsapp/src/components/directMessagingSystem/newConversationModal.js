@@ -39,7 +39,6 @@ export default function NewConversationModal({closeModal}) {
                                  label={contact.name}
                                  onChange={()=> handleCheckboxChange(contact.username)}/>
                          </Form.Group>
-
                      ))}
                     <Button type="submit">Create</Button>
                 </Form>
