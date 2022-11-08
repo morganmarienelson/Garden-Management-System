@@ -75,7 +75,7 @@ function App() {
       <Route path = "/Forum" element={<QuestionForum />} />
       <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>
-    {/*<Footer/>*/}
+    <Footer/>
     </ThemeProvider>
     </div>
   );
