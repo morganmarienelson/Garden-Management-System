@@ -47,7 +47,8 @@ const theme = createTheme({
 });
 
 function App() {
-  const [username, setUserName] = useLocalStorage('username');
+  // const [username, setUserName] = useLocalStorage('username');
+  const [username, setUserName] = useState(null);
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
