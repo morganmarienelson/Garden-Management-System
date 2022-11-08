@@ -18,15 +18,15 @@ export default function Sidebar({username}){
     }
 
     return (
-        <div style={{width: '250px'}} className="d-flex flex-column">
+        <div style={{width: '350px'}} className="d-flex flex-column border border-right bg-light border-right">
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-                <Nav variant="tabs" className="justify-content-center flex-row">
-                    <Nav.Item>
+                <Nav variant="tabs" className="flex-row">
+                    <Nav.Item className="col-xs-4 col-sm-6 text-center">
                         <Nav.Link eventKey={Conversations_key}>
                             Conversations
                         </Nav.Link>
                     </Nav.Item>
-                    <Nav.Item>
+                    <Nav.Item className="col-xs-4 col-sm-6 text-center">
                         <Nav.Link eventKey={Contact_key}>
                             Contact
                         </Nav.Link>

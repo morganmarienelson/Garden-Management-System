@@ -28,11 +28,11 @@ export default function NewConversationModal({closeModal}) {
 
     return (
         <>
-            <Modal.Header closeButton>Create Conversation</Modal.Header>
+            <Modal.Header onHide={closeModal} closeButton>Create Conversation</Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
                      {contacts.map(contact => (
-                         <Form.Group controlId={contact.username} key={contact.username}>
+                         <Form.Group controlId={contact.username} key={contact.username} className="m-2">
                              <Form.Check
                                  type="checkbox"
                                  value={selectedContactUsernames.includes(contact.username)}
@@ -40,7 +40,7 @@ export default function NewConversationModal({closeModal}) {
                                  onChange={()=> handleCheckboxChange(contact.username)}/>
                          </Form.Group>
                      ))}
-                    <Button type="submit">Create</Button>
+                    <Button type="submit" className="m-2">Create</Button>
                 </Form>
             </Modal.Body>
         </>

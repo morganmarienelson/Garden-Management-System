@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import useLocalStorage from "../hooks/useLocalStorage"
 import {useContacts} from "./ContactsProvider";
-import {message} from "antd";
 
 const ConversationsContext = React.createContext()
 

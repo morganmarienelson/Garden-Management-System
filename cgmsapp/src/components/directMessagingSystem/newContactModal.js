@@ -15,18 +15,18 @@ export default function NewContactModal({closeModal}) {
 
     return (
        <>
-        <Modal.Header closeButton>Create Contact</Modal.Header>
+        <Modal.Header closeButton onHide={closeModal}>Create Contact</Modal.Header>
            <Modal.Body>
                <Form onSubmit={handleSubmit}>
-                   <Form.Group>
+                   <Form.Group className="m-2">
                    <Form.Label>Username</Form.Label>
                        <Form.Control type="text" ref={usernameRef} required/>
                    </Form.Group>
-                   <Form.Group>
+                   <Form.Group className="m-2">
                        <Form.Label>Name</Form.Label>
                        <Form.Control type="text" ref={nameRef} required/>
                    </Form.Group>
-                   <Button type="submit">Create</Button>
+                   <Button className="m-2" type="submit">Create</Button>
                </Form>
            </Modal.Body>
        </>

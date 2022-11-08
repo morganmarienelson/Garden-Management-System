@@ -21,7 +21,7 @@ export default function OpenConversation(){
 
 
     return (
-        <div className="d-flex flex-column flex-grow-1">
+        <div className="d-flex flex-column flex-grow-1 t-3">
             <div className="flex-grow-1 overflow-auto">
                 <div className="d-flex flex-column align-items-start justify-content-end px-3">
                     {selectedConversation.messages.map((message, index) => {
@@ -56,7 +56,7 @@ export default function OpenConversation(){
                             onChange={e => setText(e.target.value) }
                             style={{height: '75px', resize: 'none' }}
                             ></Form.Control>
-                        <InputGroup>
+                        <InputGroup className="m-2" >
                             <Button type="submit">Send</Button>
                         </InputGroup>
                     </InputGroup>
