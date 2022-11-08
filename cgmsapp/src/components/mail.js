@@ -1,10 +1,17 @@
 import react from 'react';
 import { useState } from 'react';
+import {Login} from "@mui/icons-material";
+import Sidebar from "./directMessagingSystem/sidebar";
+import OpenConversation from "./directMessagingSystem/openConversation";
+import {useConversations} from "../context/ConversationsProvider";
 
-export default function Mail(){
+export default function Mail({username}){
+    const { selectedConversation } = useConversations();
+
     return (
-        <div>
-            <h1>Mail</h1>
+        <div className="d-flex" style={{height: "80vh"}}>
+        <Sidebar username={username}/>
+            {selectedConversation &&     <OpenConversation/>}
         </div>
     );
 }

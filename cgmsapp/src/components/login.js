@@ -14,8 +14,7 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 
 
-export default function SignIn() {
-    const [username, setUsername] = React.useState('');
+export default function SignIn({username, setUserName}) {
     const [password, setPassword] = React.useState('');
 
   const handleSubmit = (event) => {
@@ -58,7 +57,8 @@ export default function SignIn() {
               label="Username"
               name="username"
               autoFocus
-              onChange={(event) => setUsername(event.target.value)}
+              onChange={(event) => setUserName(event.target.value)
+              }
             />
             <TextField
               margin="normal"
