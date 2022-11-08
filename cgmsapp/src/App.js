@@ -48,7 +48,7 @@ const theme = createTheme({
 
 function App() {
   // const [username, setUserName] = useLocalStorage('username');
-  const [username, setUserName] = useState(null);
+  const [username, setUserName] = React.useState('');
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -72,7 +72,8 @@ function App() {
     <Routes>
       <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />
+      <Route path="/Mail" element={ mail }/>
+      {/*<Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />*/}
       <Route path = "/Forum" element={<QuestionForum />} />
       <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>
