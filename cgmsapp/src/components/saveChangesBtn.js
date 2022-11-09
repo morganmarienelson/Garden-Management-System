@@ -4,9 +4,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import apiClient from "../api/apiClient";
 
 export default function SaveChangesAppBtn() {
   const [open, setOpen] = React.useState(false);
+  const [applicant, setApplicant] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,12 +18,34 @@ export default function SaveChangesAppBtn() {
     setOpen(false);
   };
 
+  const handleTest = () => {
+      apiClient.get("/v1/applications/get/all")
+      .then (res => {
+        console.log(res);
+        console.log(res.data);
+        setApplicant(res.data);
+      })
+    };
+
+    // for each array item print out the first name
+    const applicantList = applicant.map((applicant) => {
+      return (
+        <div>
+          <p>{applicant.firstName}</p>
+        </div>
+      )});
+
+  
+    
+
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="outlined" onClick={handleTest}>
         Save Changes
       </Button>
-      <Dialog open={open} onClose={handleClose}>
+      {applicantList}
+
+      {/* <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
             Are you sure you want to save these changes?
         </DialogTitle>
@@ -30,7 +54,7 @@ export default function SaveChangesAppBtn() {
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Save Changes</Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }

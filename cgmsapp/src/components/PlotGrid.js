@@ -28,13 +28,13 @@ export default function PlotGrid(props) {
         editable: false,
       },
       {
-        field: 'owner firstName',
+        field: 'ownerfirstName',
         headerName: 'First Name',
         width: 100,
         editable: false,
       },
       {
-        field: 'owner lastName',
+        field: 'ownerlastName',
         headerName: 'Last Name',
         width: 100,
         editable: false,

@@ -14,8 +14,9 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 
 
-export default function SignIn({username, setUserName}) {
+export default function SignIn() {
     const [password, setPassword] = React.useState('');
+    const [username, setUserName] = React.useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
