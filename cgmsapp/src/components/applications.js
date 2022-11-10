@@ -11,6 +11,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import apiClient from "../api/apiClient";
 import PendingApps from "./pendingApps";
+import AcceptedApps from "./AcceptedApps";
 import moment from "moment";
 
 export function DataTable() {
@@ -20,7 +21,7 @@ export function DataTable() {
   const columns = [
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
-    {field: "feePaid", headerName: "Fee Paid", width: 130},
+    { field: "feePaid", headerName: "Fee Paid", width: 130},
     { field: "currentMember", headerName: "Existing Application", width: 160 },
     { field: "submitDate", headerName: "Submission Date", width: 140},
     { field: "submitTime", headerName: "Submission Time", width: 140},
@@ -46,6 +47,12 @@ export function DataTable() {
       headerName: "Delete",
       width: 130,
       renderCell: DeleteAppBtn,
+    },
+    {
+      field: "accept",
+      headerName: "Accept",
+      width: 130,
+      renderCell: AcceptAppBtn,
     },
   ];
 
@@ -130,6 +137,43 @@ export function DataTable() {
       </div>
     );
   };
+
+  function AcceptAppBtn() {
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+  
+    const handleAccept = () => {
+      apiClient.delete(`/v1/applications/delete/${selected}`)
+      const newRows = applicant.filter((row) => row.applicationId !== selected);
+      setApplicant(newRows);
+      setOpen(false);
+    };
+  
+    return (
+      <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Accept
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            Are you sure you want to accept this applicant?
+          </DialogTitle>
+          <DialogContent></DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleAccept}>Delete</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  };
   
 
   return (
@@ -150,6 +194,7 @@ export function DataTable() {
 export default function Applications() {
   const [activeTabKey, setActiveTabKey] = useState("applications");
   const [showBacklog, setShowBacklog] = useState(false);
+  const [showAccepted, setShowAccepted] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
   const [showPending, setShowPending] = useState(false);
 
@@ -161,6 +206,10 @@ export default function Applications() {
     {
       key: "applications",
       tab: "Current Applications",
+    },
+    {
+      key: "accepted",
+      tab: "Accepted Applications",
     },
     {
       key: "backlog",
@@ -190,22 +239,32 @@ export default function Applications() {
             setShowBacklog(true);
             setShowWindow(false);
             setShowPending (false);
+            setShowAccepted(false);
+          } else if (key === "accepted") {
+            setShowBacklog(false);
+            setShowWindow(false);
+            setShowPending (false);
+            setShowAccepted(true);
           } else if (key === "applications") {
             setShowBacklog(false);
             setShowWindow(false);
             setShowPending(false);
+            setShowAccepted(false);
           } else if (key === "window") {
             setShowWindow(true);
             setShowBacklog(false);
             setShowPending(false);
+            setShowAccepted(false);
           } else if (key === "Pendingapps") {
             setShowPending(true);
             setShowBacklog(false);
             setShowWindow(false);
+            setShowAccepted(false);
           } else {
             setShowWindow(false);
             setShowBacklog(false);
             setShowPending(false);
+            setShowAccepted(false);
           }
 
           onTabChange(key);
@@ -214,7 +273,8 @@ export default function Applications() {
         {showBacklog && <DeclinedTable />}
         {showWindow && <OpenAppBtn />}
         {showPending && <PendingApps />}
-        {!showBacklog && !showWindow && !showPending && <DataTable />}
+        {showAccepted && <AcceptedApps />}
+        {!showBacklog && !showWindow && !showPending && !showAccepted && <DataTable />}
       </Card>
     </div>
   );
