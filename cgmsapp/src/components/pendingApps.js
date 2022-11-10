@@ -10,9 +10,7 @@ import apiClient from "../api/apiClient";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { OutlinedInput } from "@mui/material";
-
-
-
+import moment from "moment";
 
 export default function PendingApps() {
   const [applicant, setApplicant] = useState([]);
@@ -23,7 +21,7 @@ export default function PendingApps() {
     { field: "lastName", headerName: "Last name", width: 130 },
     { field: "currentMember", headerName: "Existing Application", width: 160 },
     { field: "submitDate", headerName: "Submission Date", width: 140},
-    { field: "submission", headerName: "Submission Time", width: 140},
+    { field: "submitTime", headerName: "Submission Time", width: 140},
     {
       field: "preferredPlotSize",
       headerName: "Plot Size",
@@ -45,39 +43,31 @@ export default function PendingApps() {
       field: "waitlist",
       headerName: "Waitlist",
       width: 130,
-      renderCell: DeleteAppBtn,
+      renderCell: WaitlistAppBtn,
     },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 130,
+      renderCell: DeleteAppBtn,
+    }
   ];
 
   //get all applications and set state
   useEffect(() => {
     apiClient.get("/v1/applications/get/all")
-    .then (res => {
+      .then (res => {
+        res.data.forEach((row) => {
+          row.submitDate = new Date(row.submitDate).toLocaleDateString();
+          row.submitTime = moment(row.submitTime).format("h:mm a");
+  
+        });
       setApplicant(res.data);
     })
   }, []);
 
-    //only render rows that have a feePaid of null
-    const rows = applicant.filter((row) => row.feePaid === null);
-
-  //delete row function
-  const handleDelete = (id) => {
-    //start of api call
-    apiClient.delete(`/v1/applications/${id}`)
-    .then (res => {
-      console.log(res);
-      console.log(res.data);
-      setApplicant(res.data);
-    })
-    //wont exist until api call is done
-    apiClient.post(`/v1/declinedapplications/${id}`)
-    .then (res => {
-      console.log(res);
-      console.log(res.data);
-    })
-    const newRows = applicant.filter((row) => row.id !== id);
-    setApplicant(newRows);
-  };
+  //only render rows that have a feePaid of null
+  const rows = applicant.filter((row) => row.feePaid === null);
 
   function PaymentRecievedAppBtn () {
     const [open, setOpen] = React.useState(false);
@@ -121,7 +111,7 @@ export default function PendingApps() {
     );
   }
 
-  function DeleteAppBtn() {
+  function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);
   
     const handleClickOpen = () => {
@@ -130,10 +120,6 @@ export default function PendingApps() {
   
     const handleClose = () => {
       setOpen(false);
-    };
-    const handleReject = () => {
-      const id = selected;
-      handleDelete(id);
     };
 
     return (
@@ -148,12 +134,50 @@ export default function PendingApps() {
           <DialogContent></DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleReject}>Waitlist</Button>
+            <Button onClick={handleClose}>Waitlist</Button>
           </DialogActions>
         </Dialog>
       </div>
     );
   }
+
+  function DeleteAppBtn() {
+      const [open, setOpen] = React.useState(false);
+    
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+      const handleDelete = () => {
+        apiClient.delete(`/v1/applications/delete/${selected}`)
+        const newRows = applicant.filter((row) => row.applicationId !== selected);
+        setApplicant(newRows);
+        setOpen(false);
+      };
+    
+      return (
+        <div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Delete
+          </Button>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>
+              Are you sure you want to delete this applicant?
+            </DialogTitle>
+            <DialogContent></DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleDelete}>Delete</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    };
+    
 
   return (
     <div>
