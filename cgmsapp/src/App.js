@@ -1,18 +1,17 @@
 import React, {useState} from 'react'
 import { createTheme , ThemeProvider} from '@mui/material/styles';
 import PersistentDrawerLeft from './components/navbar';
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, } from 'react-router-dom';
 import Applications from './components/applications';
 import Plots from './components/plots';
 import Footer from './components/footer';
 import Mail from './components/mail';
 import QuestionForum from './components/questionForum';
-import Button from '@mui/material/Button';
-import apiClient from './api/apiClient';
 import Login from './components/login';
-import useLocalStorage from "./hooks/useLocalStorage";
 import {ContactsProvider} from "./context/ContactsProvider";
 import {ConversationsProvider} from "./context/ConversationsProvider";
+import {useLocation} from 'react-router-dom';
+
 
 
 const theme = createTheme({
@@ -47,16 +46,8 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [username, setUserName] = useLocalStorage('username');
   const [username, setUserName] = React.useState('');
-//EXAMPLE OF API CALL
-  //  function apiClick () {
-  //   apiClient.get('/v1/balancebook/get/all')
-  //   .then((response) => {
-  //     console.log(response);
-  //   }
-  //   )
-  // };
+  const location = useLocation();
 
   const mail = (
       <ContactsProvider>
@@ -77,7 +68,7 @@ function App() {
       <Route path = "/Forum" element={<QuestionForum />} />
       <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>
-    <Footer/>
+    {location.pathname !== '/Mail' && <Footer /> }
     </ThemeProvider>
     </div>
   );
