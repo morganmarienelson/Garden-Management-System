@@ -73,6 +73,10 @@ export default function Plots(){
             key: "table",
             tab: "Table Display"
         },
+        {
+            key: "workday",
+            tab: "Workday Display"
+        },
 ]
 
     return (
