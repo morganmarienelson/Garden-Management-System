@@ -38,6 +38,16 @@ export default function workdayTable() {
     },
   ];
 
+  const rows = [
+    {
+      firstName: "Joe",
+      lastName: "Jenkins",
+      id: "1",
+      wkd1: "12/25/2022",
+      wkd2: "06/15/2023",
+    }
+  ]
+
   return (
     <div style={{ height: 400, width: '70%' , display: "inline-block", alignContent: "center"}}>
       <DataGrid

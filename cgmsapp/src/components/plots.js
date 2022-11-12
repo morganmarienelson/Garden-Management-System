@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card} from 'antd';
 import PlotGrid from "./PlotGrid";
+import gardenWorkdays from "./gardenWorkdays";
 import AddPlotsBtn from "./AddPlotsBtn";
 import GardenGrid from "./GardenGrid";
 import '../css/gardenGrid.css'
@@ -10,6 +11,7 @@ import PlotDataColumns from '../data/PlotDataColumns';
 export default function Plots(){
     const [activeTabKey, setActiveTabKey] = useState('grid')
     const [showGrid, setShowGrid] = useState(true)
+    const [showWorkday, setShowWorkday] = useState(true)
     const [gridData, setGridData] = useState(GridTestData)
     const [columns, setColumns] = useState(PlotDataColumns)
     const [formState, setFormState] = React.useState(false);
@@ -81,6 +83,51 @@ export default function Plots(){
 
     return (
         <div>
+        <div id="content-wrapper">
+          <div id="page-label-box" style={{ margin: 10 }}></div>
+        </div>
+        <Card
+          className="card"
+          style={{ width: "100%" }}
+          clas
+          tabList={tabList}
+          activeTabKey={activeTabKey}
+          onTabChange={(key) => {
+            function onTabChange(key) {
+              setActiveTabKey(key);
+            }
+            if (key === "gird") {
+              setShowGrid(true);
+              setShowWorkday(false);
+              setColumns(false);
+              //setShowPending (false);
+            } else if (key === "table") {
+              setColumns(true)
+              setShowGrid(false);
+              setShowWorkday(false);
+              //setShowPending(false);
+            } else if (key === "workday") {
+              setShowWorkday(true);
+              setShowGrid(false);
+              setColumns(false);
+              //setShowPending(false);
+            } else {
+              setShowGrid(false);
+              setShowWorkday(false);
+              setColumns(false)
+              //setShowPending(false);
+            }
+            onTabChange(key);
+          }}
+        >
+          {showGrid && <GardenGrid />}
+          {showWorkday && <gardenWorkdays />}
+          {!showGrid && !showWorkday && !columns && <PlotGrid />}
+        </Card>
+      </div>
+        /*
+        <div>
+        {showWindow && <PlotGrid />}
             <div id="content-wrapper" >
                 <div id="page-label-box" style={{margin: 10}}>
                 </div>
@@ -95,8 +142,10 @@ export default function Plots(){
                         setActiveTabKey(key)
                         if (key === "grid"){
                             setShowGrid(true);
+                        } else if (key === "workday") {
+                            setShowWorkday(true);
                         } else {
-                            setShowGrid(false)
+                            setShowGrid(false);
                         }
                     }
                     onTabChange(key);
@@ -116,8 +165,10 @@ export default function Plots(){
                         loadRowData={loadRowData}
                     />
                     </>
-                )}
+                )
+                }
             </Card>
         </div>
+        */
     );
         }
