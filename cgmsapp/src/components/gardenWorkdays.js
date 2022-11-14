@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { DataGrid, GridCellParams } from '@mui/x-data-grid';
 //import WorkdayData from '../data/WorkdayData';
 import UpdateWorkday from "./UpdateWorkday";
-import { WorkdayData } from '../data/WordayData';
+import { WorkdayData } from '../data/WorkdayData';
 import Box from '@mui/material/Box';
 import clsx from 'clsx';
 
