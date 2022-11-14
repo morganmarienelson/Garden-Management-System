@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card} from 'antd';
 import PlotGrid from "./PlotGrid";
-import gardenWorkdays from "./gardenWorkdays";
+import GardenWorkdays from "./GardenWorkdays";
 import AddPlotsBtn from "./AddPlotsBtn";
 import GardenGrid from "./GardenGrid";
 import '../css/gardenGrid.css'
@@ -9,11 +9,11 @@ import { GridTestData } from '../data/GridTestData';
 import PlotDataColumns from '../data/PlotDataColumns';
 
 export default function Plots(){
-    const [activeTabKey, setActiveTabKey] = useState('grid')
+    const [activeTabKey, setActiveTabKey] = useState("grid")
     const [showGrid, setShowGrid] = useState(true)
-    const [showWorkday, setShowWorkday] = useState(true)
+    const [showWorkday, setShowWorkday] = useState(false)
     const [gridData, setGridData] = useState(GridTestData)
-    const [columns, setColumns] = useState(PlotDataColumns)
+    const [columns, setColumns] = useState(false)
     const [formState, setFormState] = React.useState(false);
   
     const handleFormChange = (event, isCheckbox=false) => {
@@ -56,13 +56,13 @@ export default function Plots(){
     
       let editFunction = (editedRow) => {
         let temp = gridData.slice()
-        temp[temp.findIndex(x => x.id == editedRow.id)] = editedRow
+        temp[temp.findIndex(x => x.id === editedRow.id)] = editedRow
         setGridData(temp)
         console.log(gridData)
       }
     
       let loadRowData = (id) => {
-        return gridData[gridData.findIndex(x => x.id == id)]
+        return gridData[gridData.findIndex(x => x.id === id)]
       }
     //
 
@@ -79,7 +79,7 @@ export default function Plots(){
             key: "workday",
             tab: "Workday Display"
         },
-]
+    ]
 
     return (
         <div>
@@ -100,75 +100,34 @@ export default function Plots(){
               setShowGrid(true);
               setShowWorkday(false);
               setColumns(false);
-              //setShowPending (false);
             } else if (key === "table") {
               setColumns(true)
               setShowGrid(false);
               setShowWorkday(false);
-              //setShowPending(false);
             } else if (key === "workday") {
               setShowWorkday(true);
               setShowGrid(false);
               setColumns(false);
-              //setShowPending(false);
             } else {
               setShowGrid(false);
               setShowWorkday(false);
               setColumns(false)
-              //setShowPending(false);
             }
             onTabChange(key);
           }}
         >
-          {showGrid && <GardenGrid />}
-          {showWorkday && <gardenWorkdays />}
-          {!showGrid && !showWorkday && !columns && <PlotGrid />}
+          {columns && <AddPlotsBtn handleSubmitForm={handleSubmitForm} handleFormChange={handleFormChange}/>}
+          {columns && <PlotGrid 
+                                  columns={columns} 
+                                  gridData={gridData} 
+                                  deleteFunction={deleteFunction} 
+                                  editDoubleClickFunction={editDoubleClickFunction}
+                                  editFunction={editFunction}
+                                  loadRowData={loadRowData}
+                                  />}
+          {showWorkday && <GardenWorkdays />}
+          {!showWorkday && !columns && <GardenGrid/>}
         </Card>
       </div>
-        /*
-        <div>
-        {showWindow && <PlotGrid />}
-            <div id="content-wrapper" >
-                <div id="page-label-box" style={{margin: 10}}>
-                </div>
-            </div>
-            <Card
-                className="card"
-                style={{ width: "100%" }}
-                tabList={tabList}
-                activeTabKey={activeTabKey}
-                onTabChange={(key) => {
-                    function onTabChange(key) {
-                        setActiveTabKey(key)
-                        if (key === "grid"){
-                            setShowGrid(true);
-                        } else if (key === "workday") {
-                            setShowWorkday(true);
-                        } else {
-                            setShowGrid(false);
-                        }
-                    }
-                    onTabChange(key);
-                }}
-            >
-                {showGrid ? (
-                    <GardenGrid/>
-                ) : (
-                    <>
-                    <AddPlotsBtn handleSubmitForm={handleSubmitForm} handleFormChange={handleFormChange}/>
-                    <PlotGrid 
-                        columns={columns} 
-                        gridData={gridData} 
-                        deleteFunction={deleteFunction} 
-                        editDoubleClickFunction={editDoubleClickFunction}
-                        editFunction={editFunction}
-                        loadRowData={loadRowData}
-                    />
-                    </>
-                )
-                }
-            </Card>
-        </div>
-        */
     );
-        }
+  }
