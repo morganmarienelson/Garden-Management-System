@@ -44,7 +44,7 @@ const homepage = () => {
           <p>
             Current gardeners are guaranteed the right to renewal of their plot
             until Dec 1 annually. <br /> Typically about 15 plots are vacated.
-            <br /> 
+            <br />
             After Dec 1st, these are then assigned on a first come first served
             basis until sold out:
           </p>

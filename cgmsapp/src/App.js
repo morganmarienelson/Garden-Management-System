@@ -1,18 +1,19 @@
-import React, {useState} from 'react'
-import { createTheme , ThemeProvider} from '@mui/material/styles';
-import PersistentDrawerLeft from './components/navbar';
-import {Routes, Route, } from 'react-router-dom';
-import Applications from './components/applications';
-import Plots from './components/plots';
-import Footer from './components/footer';
-import Mail from './components/mail';
-import QuestionForum from './components/questionForum';
-import Login from './components/login';
-import {ContactsProvider} from "./context/ContactsProvider";
-import {ConversationsProvider} from "./context/ConversationsProvider";
-import {useLocation} from 'react-router-dom';
-
-
+import React, { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import PersistentDrawerLeft from "./components/navbar";
+import { Routes, Route } from "react-router-dom";
+import Applications from "./components/applications";
+import Plots from "./components/plots";
+import Footer from "./components/footer";
+import Mail from "./components/mail";
+import QuestionForum from "./components/questionForum";
+import Homepage from "./components/homepage";
+import Button from "@mui/material/Button";
+import apiClient from "./api/apiClient";
+import Login from "./components/login";
+import useLocalStorage from "./hooks/useLocalStorage";
+import { ContactsProvider } from "./context/ContactsProvider";
+import { ConversationsProvider } from "./context/ConversationsProvider";
 
 const theme = createTheme({
   palette: {
@@ -46,10 +47,9 @@ const theme = createTheme({
 });
 
 function App() {
-<<<<<<< HEAD
   // const [username, setUserName] = useLocalStorage('username');
-  const [username, setUserName] = React.useState('');
-//EXAMPLE OF API CALL
+  const [username, setUserName] = React.useState("");
+  //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
   //   .then((response) => {
@@ -57,10 +57,6 @@ function App() {
   //   }
   //   )
   // };
-=======
-  const [username, setUserName] = React.useState('');
-  const location = useLocation();
->>>>>>> 7d9494ffa323c1646d6bff2974f66cb9c160a69c
 
   const mail = (
     <ContactsProvider>
@@ -71,18 +67,22 @@ function App() {
   );
   return (
     <div>
-    <ThemeProvider theme={theme}>
-      <PersistentDrawerLeft/>
-    <Routes>
-      <Route path="/Plots" element={<Plots />} />
-      <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={ mail }/>
-      {/*<Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />*/}
-      <Route path = "/Forum" element={<QuestionForum />} />
-      <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
-    </Routes>
-    {location.pathname !== '/Mail' && <Footer /> }
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <PersistentDrawerLeft />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/Plots" element={<Plots />} />
+          <Route path="/Applications" element={<Applications />} />
+          <Route path="/Mail" element={mail} />
+          {/*<Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />*/}
+          <Route path="/Forum" element={<QuestionForum />} />
+          <Route
+            path="/Login"
+            element={<Login setUserName={setUserName} userName={username} />}
+          />
+        </Routes>
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }
