@@ -4,28 +4,26 @@ import UndoRejectButton from "./UndoRejectButton";
 
 export default function DeclinedTable() {
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
     { field: 'firstName', headerName: 'First name', width: 130 },
     { field: 'lastName', headerName: 'Last name', width: 130 },
     {
       field: 'age',
       headerName: 'Age',
-      type: 'number',
-      width: 90,
+      width: 130,
     },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
+    // {
+    //   field: 'fullName',
+    //   headerName: 'Full name',
+    //   description: 'This column has a value getter and is not sortable.',
+    //   sortable: false,
+    //   width: 160,
+    //   valueGetter: (params) =>
+    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    // },
     {
       field: 'reopen',
       headerName: 'Re-Open',
-      width: 120,
+      width: 160,
       renderCell: (index) => {
         return <UndoRejectButton handleUndoReject={handleUndoReject} index={index}></UndoRejectButton>
       },
@@ -57,7 +55,7 @@ export default function DeclinedTable() {
   }
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: 400, width: '70%' , display: "inline-block", alignContent: "center"}}>
       <DataGrid
         rows={rows}
         columns={columns}

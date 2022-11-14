@@ -18,36 +18,37 @@ import {ConversationsProvider} from "./context/ConversationsProvider";
 const theme = createTheme({
   palette: {
     primary: {
-      light: '#8bc34a',
-      main: '#7cb342',
-      dark: '#618833',
-      contrastText: '#fff',
+      light: "#8bc34a",
+      main: "#7cb342",
+      dark: "#618833",
+      contrastText: "#fff",
     },
     secondary: {
-      light: '#616161',
-      main: '#424242',
-      dark: '#212121',
-      contrastText: '#fff',
+      light: "#616161",
+      main: "#424242",
+      dark: "#212121",
+      contrastText: "#fff",
     },
   },
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
   },
 });
 
 function App() {
-  const [username, setUserName] = useLocalStorage('username');
+  // const [username, setUserName] = useLocalStorage('username');
+  const [username, setUserName] = React.useState('');
 //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -58,12 +59,12 @@ function App() {
   // };
 
   const mail = (
-      <ContactsProvider>
-        <ConversationsProvider username={username}>
+    <ContactsProvider>
+      <ConversationsProvider username={username}>
         <Mail username={username} />
-        </ConversationsProvider>
-      </ContactsProvider>
-  )
+      </ConversationsProvider>
+    </ContactsProvider>
+  );
   return (
     <div>
     <ThemeProvider theme={theme}>
@@ -71,7 +72,8 @@ function App() {
     <Routes>
       <Route path="/Plots" element={<Plots />} />
       <Route path="/Applications" element={<Applications />} />
-      <Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />
+      <Route path="/Mail" element={ mail }/>
+      {/*<Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />*/}
       <Route path = "/Forum" element={<QuestionForum />} />
       <Route path = "/Login" element={<Login setUserName={setUserName} userName={username}/>} />
     </Routes>

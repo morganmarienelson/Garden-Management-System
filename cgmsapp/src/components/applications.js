@@ -1,41 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import { DataGrid } from "@mui/x-data-grid";
 import DeclinedTable from "./backlogApplications";
 import OpenAppBtn from "./openAppBtn";
-import Applicants from "./ApplicantsState";
 import ViewAppBtn from "./ViewAppBtn";
-import SaveChangesAppBtn from "./saveChangesBtn";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import SelectPID from "./SelectPID";
+import apiClient from "../api/apiClient";
+import PendingApps from "./pendingApps";
+import moment from "moment";
 
 export function DataTable() {
-  const [applicant, setApplicant] = useState(Applicants);
+  const [applicant, setApplicant] = useState([]);
   const [selected, setSelected] = React.useState([]);
-  const isSelected = (firstName) => selected.indexOf(firstName) !== -1;
+ 
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
-    { field: "isExisting", headerName: " Existing App", width: 130 },
-    { field: "submission", headerName: "Submission", width: 90, type: "number" },
+    {field: "feePaid", headerName: "Fee Paid", width: 130},
+    { field: "currentMember", headerName: "Existing Application", width: 160 },
+    { field: "submitDate", headerName: "Submission Date", width: 140},
+    { field: "submitTime", headerName: "Submission Time", width: 140},
     {
-      field: "plotSize",
-      headerName: "PlotSize",
-      type: "number",
-      width: 90,
+      field: "preferredPlotSize",
+      headerName: "Plot Size",
+      width: 120,
     },
-    {
-    field: "PID",
-    headerName: "PID",
-    width: 150,
-    renderCell: SelectPID,
-  },
-
     {
       field: "view",
       headerName: "View",
@@ -43,17 +36,63 @@ export function DataTable() {
       renderCell: ViewAppBtn,
     },
     {
-      field: "reject",
-      headerName: "Reject",
+      field: "waitlist",
+      headerName: "Waitlist",
+      width: 130,
+      renderCell: WaitlistAppBtn,
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
       width: 130,
       renderCell: DeleteAppBtn,
     },
   ];
-  //delete row function
-  const handleDelete = (id) => {
-    const newRows = applicant.filter((row) => row.id !== id);
-    setApplicant(newRows);
-  };
+
+  //get all applications and set state
+  useEffect(() => {
+    apiClient.get("/v1/applications/get/all")
+    .then (res => {
+      res.data.forEach((row) => {
+        row.submitDate = new Date(row.submitDate).toLocaleDateString();
+        row.submitTime = moment(row.submitTime).format("h:mm a");
+
+      });
+      setApplicant(res.data);
+    })
+  }, []);
+
+  //do not render rows that have a feePaid of null
+  const rows = applicant.filter((row) => row.feePaid !== null);
+
+  function WaitlistAppBtn() {
+    const [open, setOpen] = React.useState(false);
+  
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+    return (
+      <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Waitlist
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            Are you sure you want to put this application on waitlist?
+          </DialogTitle>
+          <DialogContent></DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleClose}>Waitlist</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
 
   function DeleteAppBtn() {
     const [open, setOpen] = React.useState(false);
@@ -65,35 +104,40 @@ export function DataTable() {
     const handleClose = () => {
       setOpen(false);
     };
-    const handleReject = () => {
-      const id = selected;
-      handleDelete(id);
+  
+    const handleDelete = () => {
+      apiClient.delete(`/v1/applications/delete/${selected}`)
+      const newRows = applicant.filter((row) => row.applicationId !== selected);
+      setApplicant(newRows);
+      setOpen(false);
     };
+  
     return (
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
-          Reject
+          Delete
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
-            Are you sure you want to reject this application?
+            Are you sure you want to delete this applicant?
           </DialogTitle>
           <DialogContent></DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleReject}>Reject</Button>
+            <Button onClick={handleDelete}>Delete</Button>
           </DialogActions>
         </Dialog>
       </div>
     );
-  }
+  };
+  
 
   return (
     <div>
-      <SaveChangesAppBtn />
     <div style={{ height: 400, width: "100%" , marginTop: 30}}>
       <DataGrid
-        rows={applicant} onCellClick={(e) => setSelected(e.row.id)}
+        getRowId={(row) => row.applicationId}
+        rows={rows} onCellClick={(e) => setSelected(e.row.applicationId)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
@@ -107,15 +151,20 @@ export default function Applications() {
   const [activeTabKey, setActiveTabKey] = useState("applications");
   const [showBacklog, setShowBacklog] = useState(false);
   const [showWindow, setShowWindow] = useState(false);
+  const [showPending, setShowPending] = useState(false);
 
   const tabList = [
     {
+      key: "Pendingapps",
+      tab: "Pending Applications",
+    },
+    {
       key: "applications",
-      tab: "New Applications",
+      tab: "Current Applications",
     },
     {
       key: "backlog",
-      tab: "Declined Applications",
+      tab: "Waitlist Applications",
     },
     {
       key: "window",
@@ -140,15 +189,23 @@ export default function Applications() {
           if (key === "backlog") {
             setShowBacklog(true);
             setShowWindow(false);
+            setShowPending (false);
           } else if (key === "applications") {
             setShowBacklog(false);
             setShowWindow(false);
+            setShowPending(false);
           } else if (key === "window") {
             setShowWindow(true);
             setShowBacklog(false);
+            setShowPending(false);
+          } else if (key === "Pendingapps") {
+            setShowPending(true);
+            setShowBacklog(false);
+            setShowWindow(false);
           } else {
             setShowWindow(false);
             setShowBacklog(false);
+            setShowPending(false);
           }
 
           onTabChange(key);
@@ -156,7 +213,8 @@ export default function Applications() {
       >
         {showBacklog && <DeclinedTable />}
         {showWindow && <OpenAppBtn />}
-        {!showBacklog && !showWindow && <DataTable />}
+        {showPending && <PendingApps />}
+        {!showBacklog && !showWindow && !showPending && <DataTable />}
       </Card>
     </div>
   );
