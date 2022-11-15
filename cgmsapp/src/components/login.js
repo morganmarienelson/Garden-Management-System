@@ -20,7 +20,7 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`http://159.223.113.61:8080/UCGBTEST/auth/login/`, {username: `${username}`, password: `${password}`})
+    axios.post(`http://159.223.113.61:8080/UCGB/auth/login/`, {username: `${username}`, password: `${password}`})
         .then (response => { 
             const token = response.data;
             localStorage.setItem('token', token);
