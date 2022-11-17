@@ -22,7 +22,7 @@ export function DataTable() {
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
     { field: "feePaid", headerName: "Fee Paid", width: 130},
-    { field: "currentMember", headerName: "Existing Application", width: 160 },
+    { field: "currentGardener", headerName: "Existing Application", width: 160 },
     { field: "submitDate", headerName: "Submission Date", width: 140},
     { field: "submitTime", headerName: "Submission Time", width: 140},
     {
@@ -70,7 +70,7 @@ export function DataTable() {
   }, []);
 
   //do not render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.feePaid !== null);
+  const rows = applicant.filter((row) => row.feePaid !== 0);
 
   function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);

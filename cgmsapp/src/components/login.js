@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 
-
 export default function SignIn() {
     const [password, setPassword] = React.useState('');
     const [username, setUserName] = React.useState('');
@@ -25,6 +24,7 @@ export default function SignIn() {
             const token = response.data;
             localStorage.setItem('token', token);
             console.log(token);
+            
         }) 
       .catch(error => {
           console.log(error);
