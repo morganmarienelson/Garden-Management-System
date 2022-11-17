@@ -47,7 +47,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [localUsername, setLocalUserName] = React.useState("");
+  const [localUsername, setLocalUserName] = useLocalStorage('username');
   //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
