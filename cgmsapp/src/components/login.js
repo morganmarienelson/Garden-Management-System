@@ -12,10 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
+import homepage from "./homepage"
+import {Routes, Route, useNavigate} from 'react-router-dom';
 
-export default function SignIn() {
+
+
+export default function SignIn({setLocalUsername}) {
     const [password, setPassword] = React.useState('');
     const [username, setUserName] = React.useState('');
+    const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,13 +29,18 @@ export default function SignIn() {
             const token = response.data;
             localStorage.setItem('token', token);
             console.log(token);
-            
+            navigate('/');
         }) 
       .catch(error => {
           console.log(error);
           }
       );
   };
+
+    const loginChange = (event) => {
+        setUserName(event.target.value);
+        setLocalUsername(event.target.value);
+    };
 
   return (
       <Container component="main" maxWidth="xs" sx={{mb: 10}}>
@@ -58,8 +68,7 @@ export default function SignIn() {
               label="Username"
               name="username"
               autoFocus
-              onChange={(event) => setUserName(event.target.value)
-              }
+              onChange={loginChange}
             />
             <TextField
               margin="normal"
@@ -98,6 +107,9 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
+          <Routes>
+              <Route path="/" element={<homepage />} />
+          </Routes>
       </Container>
   );
 }
