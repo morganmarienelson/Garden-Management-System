@@ -48,8 +48,7 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [username, setUserName] = useLocalStorage('username');
-  const [username, setUserName] = React.useState("");
+  const [localUsername, setLocalUserName] = useLocalStorage('username');
   const location = useLocation();
   //EXAMPLE OF API CALL
   //  function apiClick () {
