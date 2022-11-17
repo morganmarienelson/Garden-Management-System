@@ -14,7 +14,7 @@ import Container from '@mui/material/Container';
 import axios from 'axios';
 
 
-export default function SignIn() {
+export default function SignIn({setLocalUsername}) {
     const [password, setPassword] = React.useState('');
     const [username, setUserName] = React.useState('');
 
@@ -31,6 +31,11 @@ export default function SignIn() {
           }
       );
   };
+
+    const loginChange = (event) => {
+        setUserName(event.target.value);
+        setLocalUsername(event.target.value);
+    };
 
   return (
       <Container component="main" maxWidth="xs" sx={{mb: 10}}>
@@ -58,8 +63,7 @@ export default function SignIn() {
               label="Username"
               name="username"
               autoFocus
-              onChange={(event) => setUserName(event.target.value)
-              }
+              onChange={loginChange}
             />
             <TextField
               margin="normal"
