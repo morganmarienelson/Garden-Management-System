@@ -2,34 +2,35 @@ import React, { useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import UndoRejectButton from "./UndoRejectButton";
 import Button from '@mui/material/Button';
+import ViewAppBtn from "./ViewAppBtn";
+import DeleteAppBtn from "./DeletePlotsBtn";
 
 export default function AcceptedApps() {
-  const columns = [
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
-    {
-      field: 'age',
-      headerName: 'Age',
-      width: 130,
-    },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
-    {
-      field: 'reopen',
-      headerName: 'Re-Open',
-      width: 160,
-      renderCell: (index) => {
-        return <UndoRejectButton handleUndoReject={handleUndoReject} index={index}></UndoRejectButton>
-      },
-    },
-  ];
+    const columns = [
+        { field: "firstName", headerName: "First name", width: 130 },
+        { field: "lastName", headerName: "Last name", width: 130 },
+        { field: "feePaid", headerName: "Fee Paid", width: 130},
+        { field: "currentMember", headerName: "Existing Application", width: 160 },
+        { field: "submitDate", headerName: "Submission Date", width: 140},
+        { field: "submitTime", headerName: "Submission Time", width: 140},
+        {
+          field: "preferredPlotSize",
+          headerName: "Plot Size",
+          width: 120,
+        },
+        {
+          field: "view",
+          headerName: "View",
+          width: 130,
+          renderCell: ViewAppBtn,
+        },
+        {
+          field: "delete",
+          headerName: "Delete",
+          width: 130,
+          renderCell: DeleteAppBtn,
+        },
+      ];
   
   let rowData = [
     { id: 1, lastName: 'Johnson', firstName: 'Donny', age: 35, reopen: 1, },
@@ -56,7 +57,7 @@ export default function AcceptedApps() {
   }
 
   return (
-    <div style={{ height: 400, width: '70%' , display: "inline-block", alignContent: "center"}}>
+    <div style={{ height: 400, width: '100%' , display: "inline-block", alignContent: "center"}}>
       <DataGrid
         rows={rows}
         columns={columns}
