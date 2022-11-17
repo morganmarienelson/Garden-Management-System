@@ -12,13 +12,3 @@ export default function Mail({username}){
         </div>
     );
 }
-// import React from "react";
-//
-// export default function Mail({username}){
-//     return (
-//         <div>
-//             <h1>Mail</h1>
-//         </div>
-//     );
-// }
-
