@@ -14,6 +14,7 @@ import Login from "./components/login";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./context/ContactsProvider";
 import { ConversationsProvider } from "./context/ConversationsProvider";
+import {useLocation} from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -49,6 +50,7 @@ const theme = createTheme({
 function App() {
   // const [username, setUserName] = useLocalStorage('username');
   const [username, setUserName] = React.useState("");
+  const location = useLocation();
   //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -81,7 +83,7 @@ function App() {
             element={<Login setUserName={setUserName} userName={username} />}
           />
         </Routes>
-        <Footer />
+        {location.pathname !== '/Mail' && <Footer /> }
       </ThemeProvider>
     </div>
   );
