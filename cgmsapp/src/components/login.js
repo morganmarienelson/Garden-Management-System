@@ -12,11 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from 'axios';
+import homepage from "./homepage"
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
 
 
 export default function SignIn({setLocalUsername}) {
     const [password, setPassword] = React.useState('');
     const [username, setUserName] = React.useState('');
+    const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,6 +29,7 @@ export default function SignIn({setLocalUsername}) {
             const token = response.data;
             localStorage.setItem('token', token);
             console.log(token);
+            navigate('/');
         }) 
       .catch(error => {
           console.log(error);
@@ -102,6 +107,9 @@ export default function SignIn({setLocalUsername}) {
             </Grid>
           </Box>
         </Box>
+          <Routes>
+              <Route path="/" element={<homepage />} />
+          </Routes>
       </Container>
   );
 }
