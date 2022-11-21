@@ -8,13 +8,12 @@ import Footer from "./components/footer";
 import Mail from "./components/mail";
 import QuestionForum from "./components/questionForum";
 import Homepage from "./components/homepage";
-import Button from "@mui/material/Button";
-import apiClient from "./api/apiClient";
 import Login from "./components/login";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./context/ContactsProvider";
 import { ConversationsProvider } from "./context/ConversationsProvider";
 import {useLocation} from 'react-router-dom';
+import {SocketProvider} from "./context/SocketProvider";
 
 const theme = createTheme({
   palette: {
@@ -60,11 +59,13 @@ function App() {
   // };
 
   const mail = (
+      <SocketProvider id={localUsername}>
     <ContactsProvider>
       <ConversationsProvider username={localUsername}>
         <Mail username={localUsername} />
       </ConversationsProvider>
     </ContactsProvider>
+      </SocketProvider>
   );
   return (
     <div>
