@@ -15,8 +15,6 @@ import axios from 'axios';
 import homepage from "./homepage"
 import {Routes, Route, useNavigate} from 'react-router-dom';
 
-
-
 export default function SignIn({setLocalUsername}) {
     const [password, setPassword] = React.useState('');
     const [username, setUserName] = React.useState('');
@@ -28,6 +26,7 @@ export default function SignIn({setLocalUsername}) {
         .then (response => { 
             const token = response.data;
             localStorage.setItem('token', token);
+            console.log("token");
             console.log(token);
             navigate('/');
         }) 

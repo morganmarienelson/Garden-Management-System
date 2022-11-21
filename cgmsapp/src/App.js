@@ -59,7 +59,7 @@ function App() {
   // };
 
   const mail = (
-      <SocketProvider id={localUsername}>
+      <SocketProvider username={localUsername}>
     <ContactsProvider>
       <ConversationsProvider username={localUsername}>
         <Mail username={localUsername} />
@@ -75,8 +75,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/Plots" element={<Plots />} />
           <Route path="/Applications" element={<Applications />} />
-          <Route path="/Mail" element={mail} />
-          {/*<Route path="/Mail" element={localUsername ? mail : <Login setUserName={setLocalUserName} userName={localUsername}/>} />*/}
+          <Route path="/Mail" element={localUsername ? mail : <Login setUserName={setLocalUserName} userName={localUsername}/>} />
           <Route path="/Forum" element={<QuestionForum />} />
           <Route
             path="/Login"

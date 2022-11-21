@@ -7,17 +7,17 @@ export function useSocket(){
     return useContext(SocketContext)
 }
 
-export function SocketProvider({id, children}){
+export function SocketProvider({username, children}){
    const [socket, setSocket ] = useState()
 
     useEffect(()=> {
         const newSocket = io(
             'http://localhost:5000',
-            {query: {id}}
+            {query: {username}}
         )
         setSocket(newSocket)
         return () => newSocket.close()
-    }, [id])
+    }, [username])
 
     return (
         <SocketContext.Provider value={socket}>
