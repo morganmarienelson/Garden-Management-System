@@ -75,7 +75,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/Plots" element={<Plots />} />
           <Route path="/Applications" element={<Applications />} />
-          <Route path="/Mail" element={localUsername ? mail : <Login setUserName={setLocalUserName} userName={localUsername}/>} />
+          <Route path="/Mail" element={mail} />
           <Route path="/Forum" element={<QuestionForum />} />
           <Route
             path="/Login"
