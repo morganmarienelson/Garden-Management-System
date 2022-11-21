@@ -1,6 +1,12 @@
-const io = require("socket.io")(5000, {
+const PORT = 5000;
+const http = require('http');
+
+const httpServer = http.createServer()
+
+
+const io = require("socket.io")(httpServer, {
     cors: {
-        origin: "https://localhost:3000",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"]
     }
 });
@@ -19,3 +25,5 @@ io.on('connection', socket => {
         })
     })
 })
+
+httpServer.listen(PORT);
