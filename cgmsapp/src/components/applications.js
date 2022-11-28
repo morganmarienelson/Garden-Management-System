@@ -22,7 +22,6 @@ export function DataTable() {
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
     { field: "feePaid", headerName: "Fee Paid", width: 130},
-    { field: "currentGardener", headerName: "Existing Application", width: 160 },
     { field: "submitDate", headerName: "Submission Date", width: 140},
     { field: "submitTime", headerName: "Submission Time", width: 140},
     {
@@ -70,7 +69,7 @@ export function DataTable() {
   }, []);
 
   //do not render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.feePaid !== 0);
+  const rows = applicant.filter((row) => row.status === "\"feePaid\"");
 
   function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);
@@ -82,6 +81,14 @@ export function DataTable() {
     const handleClose = () => {
       setOpen(false);
     };
+
+    const handleWaitlist = () => {
+      apiClient.put(`/v1/applications/update/status/${selected}`, 'waitlist')
+        const newRows = applicant.filter((row) => row.applicationId !== selected);
+        setApplicant(newRows);  
+        setOpen(false);
+    };
+
     return (
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
@@ -94,7 +101,7 @@ export function DataTable() {
           <DialogContent></DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Waitlist</Button>
+            <Button onClick={handleWaitlist}>Waitlist</Button>
           </DialogActions>
         </Dialog>
       </div>
@@ -150,7 +157,7 @@ export function DataTable() {
     };
   
     const handleAccept = () => {
-      apiClient.delete(`/v1/applications/delete/${selected}`)
+      apiClient.put(`/v1/applications/update/status/${selected}`, 'accepted');
       const newRows = applicant.filter((row) => row.applicationId !== selected);
       setApplicant(newRows);
       setOpen(false);
@@ -168,7 +175,7 @@ export function DataTable() {
           <DialogContent></DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleAccept}>Delete</Button>
+            <Button onClick={handleAccept}>Accept</Button>
           </DialogActions>
         </Dialog>
       </div>
