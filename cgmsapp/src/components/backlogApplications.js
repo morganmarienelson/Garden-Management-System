@@ -1,68 +1,150 @@
-import React, { useState } from "react";
-import { DataGrid } from '@mui/x-data-grid';
-import UndoRejectButton from "./UndoRejectButton";
+import React, { useEffect, useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import ViewAppBtn from "./ViewAppBtn";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import apiClient from "../api/apiClient";
+import moment from "moment";
 
-export default function DeclinedTable() {
+export default function PendingApps() {
+  const [applicant, setApplicant] = useState([]);
+  const [selected, setSelected] = React.useState([]);
+ 
   const columns = [
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
+    { field: "firstName", headerName: "First name", width: 130 },
+    { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "submitDate", headerName: "Submission Date", width: 140},
+    { field: "submitTime", headerName: "Submission Time", width: 140},
     {
-      field: 'age',
-      headerName: 'Age',
+      field: "preferredPlotSize",
+      headerName: "Plot Size",
+      width: 120,
+    },
+    {
+      field: "view",
+      headerName: "View",
       width: 130,
+      renderCell: ViewAppBtn,
     },
-    // {
-    //   field: 'fullName',
-    //   headerName: 'Full name',
-    //   description: 'This column has a value getter and is not sortable.',
-    //   sortable: false,
-    //   width: 160,
-    //   valueGetter: (params) =>
-    //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    // },
     {
-      field: 'reopen',
-      headerName: 'Re-Open',
-      width: 160,
-      renderCell: (index) => {
-        return <UndoRejectButton handleUndoReject={handleUndoReject} index={index}></UndoRejectButton>
-      },
+      field: "Reopen",
+      headerName: "Reopen",
+      width: 130,
+      renderCell: ReopenAppBtn,
     },
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 130,
+      renderCell: DeleteAppBtn,
+    }
   ];
+
+  //get all applications and set state
+  useEffect(() => {
+    apiClient.get("/v1/applications/get/all")
+      .then (res => {
+        res.data.forEach((row) => {
+          row.submitDate = new Date(row.submitDate).toLocaleDateString();
+          row.submitTime = moment(row.submitTime).format("h:mm a");
   
-  let rowData = [
-    { id: 1, lastName: 'Testingson', firstName: 'Jon', age: 35, reopen: 1},
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42, reopen: 2 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45, reopen: 3 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16, reopen: 4 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null, reopen: 5 },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150, reopen: 6 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 , reopen: 7},
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36, reopen: 8 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65, reopen: 9 },
-  ];
+        });
+      setApplicant(res.data);
+    })
+  }, []);
+
+  //only render rows that have a feePaid of null
+  const rows = applicant.filter((row) => row.status === "\"waitlist\"");
+
+  function ReopenAppBtn() {
+    const [open, setOpen] = React.useState(false);
   
-  const [rows, setRows] = useState(rowData)
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
   
-  const handleUndoReject = (i, handleClose) => {
-    console.log(i)
-    let temp = rows.slice()
-    let index = temp.map(function(e) { return e.id; }).indexOf(i);
-    temp.splice(index, 1)
-    setRows(temp)
-    // TODO: post to open-applications in db
-    handleClose()
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleReopen = () => {
+      apiClient.put(`/v1/applications/update/status/${selected}`, 'pending')
+        const newRows = applicant.filter((row) => row.applicationId !== selected);
+        setApplicant(newRows);
+        setOpen(false);
+    };
+
+    return (
+      <div>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          Reopen
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            Are you sure you want to reopen this application?
+          </DialogTitle>
+          <DialogContent></DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleReopen}>Reopen</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
   }
 
+  function DeleteAppBtn() {
+      const [open, setOpen] = React.useState(false);
+    
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+      const handleDelete = () => {
+        apiClient.delete(`/v1/applications/delete/${selected}`)
+        const newRows = applicant.filter((row) => row.applicationId !== selected);
+        setApplicant(newRows);
+        setOpen(false);
+      };
+    
+      return (
+        <div>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            Delete
+          </Button>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>
+              Are you sure you want to delete this applicant?
+            </DialogTitle>
+            <DialogContent></DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleDelete}>Delete</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    };
+    
+
   return (
-    <div style={{ height: 400, width: '70%' , display: "inline-block", alignContent: "center"}}>
+    <div>
+    <div style={{ height: 400, width: "100%" , marginTop: 30}}>
       <DataGrid
-        rows={rows}
+        getRowId={(row) => row.applicationId}
+        rows={rows} onCellClick={(e) => setSelected(e.row.applicationId)}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
-        columnThreshold={100}
       />
+    </div>
     </div>
   );
 }
