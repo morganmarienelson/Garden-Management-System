@@ -11,6 +11,7 @@ import Homepage from "./components/homepage";
 import Button from "@mui/material/Button";
 import apiClient from "./api/apiClient";
 import Login from "./components/login";
+import SignUp from "./components/signUp";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./context/ContactsProvider";
 import { ConversationsProvider } from "./context/ConversationsProvider";
@@ -80,6 +81,7 @@ function App() {
             path="/Login"
             element={<Login setUserName={setUserName} userName={username} />}
           />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
         <Footer />
       </ThemeProvider>
