@@ -73,6 +73,7 @@ const ImgWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   img {
     border-radius: 1rem;
   }
@@ -82,6 +83,7 @@ const ImgWrapper2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   h2 {
     margin-right: 4rem;
   }

@@ -33,10 +33,13 @@ export default function SignUp() {
         LastName: `${lastName}`,
         email: `${email}`,
         phoneNumber: `${phoneNumber}`,
-        address: `${address}`,
-        city: `${city}`,
-        state: `${state}`,
-        zipCode: `${zipCode}`,
+        address: {
+          address: `${address}`,
+          city: `${city}`,
+          state: `${state}`,
+          zipCode: `${zipCode}`,
+        },
+
         password: `${password}`,
       })
       .then((response) => {
@@ -145,7 +148,7 @@ export default function SignUp() {
             label="zipCode"
             type="zipCode"
             id="zipCode"
-            onChange={(event) => setState(event.target.value)}
+            onChange={(event) => setZipCode(event.target.value)}
           />
           <TextField
             margin="normal"
@@ -155,7 +158,7 @@ export default function SignUp() {
             label="password"
             type="password"
             id="password"
-            onChange={(event) => setState(event.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
