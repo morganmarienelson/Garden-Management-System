@@ -104,7 +104,7 @@ export default function SignIn({setLocalUsername}) {
                 </Link>
               </Grid>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
           <Routes>
               <Route path="/" element={<homepage />} />
@@ -112,7 +112,3 @@ export default function SignIn({setLocalUsername}) {
       </Container>
   );
 }
-    
-
-
-

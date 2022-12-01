@@ -9,6 +9,7 @@ import Mail from "./components/mail";
 import QuestionForum from "./components/questionForum";
 import Homepage from "./components/homepage";
 import Login from "./components/login";
+import SignUp from "./components/signUp";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./context/ContactsProvider";
 import { ConversationsProvider } from "./context/ConversationsProvider";
@@ -81,6 +82,7 @@ function App() {
             path="/Login"
             element={<Login setLocalUsername={setLocalUserName} />}
           />
+          <Route path="/SignUp" element={<SignUp />} />
         </Routes>
         {location.pathname !== '/Mail' && <Footer /> }
       </ThemeProvider>
