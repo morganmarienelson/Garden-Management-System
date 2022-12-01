@@ -7,6 +7,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import apiClient from "../api/apiClient";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import { OutlinedInput } from "@mui/material";
 import moment from "moment";
 
 export default function PendingApps() {
@@ -16,6 +19,7 @@ export default function PendingApps() {
   const columns = [
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "feePaid", headerName: "Fee Paid", width: 130},
     { field: "submitDate", headerName: "Submission Date", width: 140},
     { field: "submitTime", headerName: "Submission Time", width: 140},
     {
@@ -30,10 +34,10 @@ export default function PendingApps() {
       renderCell: ViewAppBtn,
     },
     {
-      field: "Reopen",
-      headerName: "Reopen",
+      field: "waitlist",
+      headerName: "Waitlist",
       width: 130,
-      renderCell: ReopenAppBtn,
+      renderCell: WaitlistAppBtn,
     },
     {
       field: "delete",
@@ -57,9 +61,9 @@ export default function PendingApps() {
   }, []);
 
   //only render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.status === "\"waitlist\"");
+  const rows = applicant.filter((row) => row.status === "\"accepted\"");
 
-  function ReopenAppBtn() {
+  function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);
   
     const handleClickOpen = () => {
@@ -70,26 +74,26 @@ export default function PendingApps() {
       setOpen(false);
     };
 
-    const handleReopen = () => {
-      apiClient.put(`/v1/applications/update/status/${selected}`, 'pending')
+    const handleWaitlist = () => {
+      apiClient.put(`/v1/applications/update/status/${selected}`, 'waitlist')
         const newRows = applicant.filter((row) => row.applicationId !== selected);
-        setApplicant(newRows);
+        setApplicant(newRows);  
         setOpen(false);
     };
 
     return (
       <div>
         <Button variant="outlined" onClick={handleClickOpen}>
-          Reopen
+          Waitlist
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
-            Are you sure you want to reopen this application?
+            Are you sure you want to put this application on waitlist?
           </DialogTitle>
           <DialogContent></DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleReopen}>Reopen</Button>
+            <Button onClick={handleWaitlist}>Waitlist</Button>
           </DialogActions>
         </Dialog>
       </div>

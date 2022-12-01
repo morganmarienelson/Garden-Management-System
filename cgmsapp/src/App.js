@@ -8,13 +8,13 @@ import Footer from "./components/footer";
 import Mail from "./components/mail";
 import QuestionForum from "./components/questionForum";
 import Homepage from "./components/homepage";
-import Button from "@mui/material/Button";
-import apiClient from "./api/apiClient";
 import Login from "./components/login";
 import SignUp from "./components/signUp";
 import useLocalStorage from "./hooks/useLocalStorage";
 import { ContactsProvider } from "./context/ContactsProvider";
 import { ConversationsProvider } from "./context/ConversationsProvider";
+import {useLocation} from 'react-router-dom';
+import {SocketProvider} from "./context/SocketProvider";
 
 const theme = createTheme({
   palette: {
@@ -48,8 +48,8 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [username, setUserName] = useLocalStorage('username');
-  const [username, setUserName] = React.useState("");
+  const [localUsername, setLocalUserName] = useLocalStorage('username');
+  const location = useLocation();
   //EXAMPLE OF API CALL
   //  function apiClick () {
   //   apiClient.get('/v1/balancebook/get/all')
@@ -60,11 +60,13 @@ function App() {
   // };
 
   const mail = (
+      <SocketProvider username={localUsername}>
     <ContactsProvider>
-      <ConversationsProvider username={username}>
-        <Mail username={username} />
+      <ConversationsProvider username={localUsername}>
+        <Mail username={localUsername} />
       </ConversationsProvider>
     </ContactsProvider>
+      </SocketProvider>
   );
   return (
     <div>
@@ -75,15 +77,14 @@ function App() {
           <Route path="/Plots" element={<Plots />} />
           <Route path="/Applications" element={<Applications />} />
           <Route path="/Mail" element={mail} />
-          {/*<Route path="/Mail" element={username ? mail : <Login setUserName={setUserName} userName={username}/>} />*/}
           <Route path="/Forum" element={<QuestionForum />} />
           <Route
             path="/Login"
-            element={<Login setUserName={setUserName} userName={username} />}
+            element={<Login setLocalUsername={setLocalUserName} />}
           />
           <Route path="/SignUp" element={<SignUp />} />
         </Routes>
-        <Footer />
+        {location.pathname !== '/Mail' && <Footer /> }
       </ThemeProvider>
     </div>
   );
