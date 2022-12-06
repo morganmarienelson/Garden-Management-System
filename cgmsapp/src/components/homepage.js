@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import garden from "../Img/garden.jpg";
 import garden2 from "../Img/garden2.jpg";
-import plants from "../Img/plants.jpg";
-import community from "../Img/community.gif";
 import plots from "../Img/plots.png";
 import shovel from "../Img/shovel.png";
 import styled from "styled-components";
 
-const homepage = () => {
+const Homepage = () => {
   return (
     <div>
       <ImgWrapper>
@@ -117,4 +115,4 @@ const Imgdiv = styled.div`
   flex: 1;
 `;
 
-export default homepage;
+export default Homepage;
