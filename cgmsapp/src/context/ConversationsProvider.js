@@ -77,7 +77,7 @@ export function ConversationsProvider({username, children}){
             return {...message, senderName: name, fromMe}
         })
         const selected = index === selectedConversationIndex
-        return { ...conversation, messages, recipients, selected }
+        return { ...conversation, messages, recipients, selected, index }
     })
 
     const value = {
@@ -86,7 +86,8 @@ export function ConversationsProvider({username, children}){
         [selectedConversationIndex],
         sendMessage,
         selectedConversationIndex: setSelectedConversationIndex,
-        createConversation
+        createConversation,
+        setConversations
     }
 
     return(
