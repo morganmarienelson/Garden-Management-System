@@ -12,6 +12,7 @@ export function useConversations(){
 export function ConversationsProvider({username, children}){
     const [conversations, setConversations] = useLocalStorage('conversations', []);
     const [selectedConversationIndex, setSelectedConversationIndex] = useState(0);
+
     const {contacts} = useContacts();
     const socket = useSocket()
 
@@ -39,7 +40,8 @@ export function ConversationsProvider({username, children}){
 
             if (madeChange){
                 return  newConversations
-            } else {
+            }
+            else {
                 return [
                     ...prevConversations,
                     {recipients, messages: [newMessage]}
@@ -87,7 +89,7 @@ export function ConversationsProvider({username, children}){
         sendMessage,
         selectedConversationIndex: setSelectedConversationIndex,
         createConversation,
-        setConversations
+        setConversations,
     }
 
     return(
