@@ -19,7 +19,6 @@ export default function OpenConversation(){
         setText('')
     }
 
-
     return (
         <div className="d-flex flex-column flex-grow-1 t-3">
             <div className="flex-grow-1 overflow-auto">
