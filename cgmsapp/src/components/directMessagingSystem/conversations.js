@@ -37,7 +37,9 @@ export default function Conversations() {
                         }).join(', ')
                         }
                     </ListGroup.Item>
-                        <a onClick={onDelete}>Delete</a>
+                        <a onClick={onDelete}>
+                            <b>Delete</b>
+                        </a>
                 </ListGroup>
                </div>
             ))}
