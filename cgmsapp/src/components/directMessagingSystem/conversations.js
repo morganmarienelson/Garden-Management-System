@@ -7,21 +7,11 @@ export default function Conversations() {
      const [deleteIndex, setDeleteIndex] = useState(0);
 
     function onDelete(){
-        console.log("I was clicked")
-        setConversations(conversations.filter((conversation, index)=> deleteIndex != index));
-        conversations.map(conversation => {
-            conversation.recipients.map(r => {
-                //TODO: need to set it to old name
-               r.name = "test";
-            })
-
-        })
-        conversations.map((conversation, index)  => {
-            conversation.recipients.map(r =>  {
-                console.log(r.name);
-            })
-        })
+        let convo;
+        convo = conversations.filter((conversation, index)=> deleteIndex != index);
+        setConversations(convo);
     }
+
 
     return (
         <div>
@@ -40,11 +30,10 @@ export default function Conversations() {
                                     active={conversation.selected}
                     >
                         {conversation.recipients.map(r => {
-                            if (r.name.name){
-                            return r.name.name;
-                            } else {
-                                return r.name;
+                            if (r.name.name) {
+                                r.name = r.name.name;
                             }
+                                return r.name;
                         }).join(', ')
                         }
                     </ListGroup.Item>
