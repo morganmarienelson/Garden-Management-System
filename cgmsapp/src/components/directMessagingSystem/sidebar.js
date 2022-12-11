@@ -8,7 +8,7 @@ import NewContactModal from "./newContactModal";
 const Conversations_key = "conversations"
 const Contact_key = "contacts"
 
-export default function Sidebar({username}){
+export default function Sidebar({username, setDeleteIndex, deleteIndex}){
     const [activeKey, setActiveKey] = useState(Conversations_key);
     const [modalOpen, setModalOpen] = useState(false);
     const conversationOpen = activeKey === Conversations_key;
@@ -34,7 +34,7 @@ export default function Sidebar({username}){
                 </Nav>
                 <Tab.Content className="border-right overflow-auto flex-grow-1">
                     <Tab.Pane eventKey={Conversations_key}>
-                        <Conversations/>
+                        <Conversations setDeleteIndex={setDeleteIndex} deleteIndex={deleteIndex}/>
                     </Tab.Pane>
                     <Tab.Pane eventKey={Contact_key}>
                         <Contacts/>

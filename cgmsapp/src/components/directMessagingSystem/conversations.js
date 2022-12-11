@@ -2,16 +2,8 @@ import React, {useState} from "react"
 import {ListGroup} from "react-bootstrap";
 import {useConversations} from "../../context/ConversationsProvider";
 
-export default function Conversations() {
-    const {conversations, selectedConversationIndex, setConversations} = useConversations();
-     const [deleteIndex, setDeleteIndex] = useState(0);
-
-    function onDelete(){
-        let convo;
-        convo = conversations.filter((conversation, index)=> deleteIndex != index);
-        setConversations(convo);
-    }
-
+export default function Conversations({deleteIndex, setDeleteIndex}) {
+    const {conversations, selectedConversationIndex} = useConversations();
 
     return (
         <div>
@@ -23,8 +15,7 @@ export default function Conversations() {
                                     onClick={() => {
                                         selectedConversationIndex(index);
                                             setDeleteIndex(index);
-                                            console.log(conversations);
-                                            console.log(conversation.recipients);
+                                            console.log(deleteIndex)
                                     }
                     }
                                     active={conversation.selected}
@@ -37,9 +28,6 @@ export default function Conversations() {
                         }).join(', ')
                         }
                     </ListGroup.Item>
-                        <a onClick={onDelete}>
-                            <b>Delete</b>
-                        </a>
                 </ListGroup>
                </div>
             ))}
