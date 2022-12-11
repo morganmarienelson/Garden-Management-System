@@ -29,12 +29,18 @@ export default function OpenConversation({deleteIndex}){
 
     return (
         <div className="d-flex flex-column flex-grow-1 t-3">
-            <a onClick={onDelete}   style={{padding: 5, width: "100%", float: "right"}}>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
+            <div style={{ width: "100%", background: "lightgray", display: "flex", justifyContent: "space-between" }}>
+                <div style={{fontSize: "20px", marginLeft: "10px"}}>
+                {selectedConversation.recipients.map(r => {
+                    return r.name;
+                }).join(', ')
+                }
+                </div>
+                <svg onClick={onDelete} style={{marginTop: "2px"}} xmlns="http://www.w3.org/2000/svg" height="24" width="24">
                     <path
                         d="M7 21q-.825 0-1.412-.587Q5 19.825 5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413Q17.825 21 17 21ZM17 6H7v13h10ZM9 17h2V8H9Zm4 0h2V8h-2ZM7 6v13Z"/>
                 </svg>
-            </a>
+            </div>
             <div className="flex-grow-1 overflow-auto">
                 <div className="d-flex flex-column align-items-start justify-content-end px-3">
                     {selectedConversation.messages.map((message, index) => {
