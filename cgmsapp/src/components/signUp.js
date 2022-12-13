@@ -13,6 +13,7 @@ import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const [firstName, setfirstName] = React.useState("");
@@ -24,6 +25,7 @@ export default function SignUp() {
   const [state, setState] = React.useState("");
   const [zipCode, setZipCode] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -46,6 +48,7 @@ export default function SignUp() {
         const token = response.data;
         localStorage.setItem("token", token);
         console.log(token);
+        navigate("/Login");
       })
       .catch((error) => {
         console.log(error);
