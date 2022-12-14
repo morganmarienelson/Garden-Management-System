@@ -1,26 +1,58 @@
 export const WorkdayData = [
-    {
-      firstName: "Joe",
-      lastName: "Jenkins",
-      id: 1,
-      wkd1: "12/25/2022",
-      wkd2: "06/15/2023",
-      notes: "Can't work holidays"
-    },
-    {
-      firstName: "Santa",
-      lastName: "Clause",
-      id: 2,
-      wkd1: "12/25/2022",
-      wkd2: "06/15/2023",
-      notes: "Works holidays"
-    },
-    {
-      firstName: "Take",
-      lastName: "Off",
-      id: 3,
-      wkd1: "12/25/2022",
-      wkd2: "",
-      notes: "Can't work"
-    },
+  {
+    id: 1,
+    firstName: "Cathy",
+    lastName: "Smith",
+    wkd1:"Attended",
+    wkd2:"Attended",
+    wkd3:"",
+},
+{
+    id: 2,
+    firstName: "Jacob",
+    lastName: "Anderson",
+    wkd1:"Attended",
+    wkd2:"",
+    wkd3:"",
+},
+{
+    id: 3,
+    firstName: "Tiffany",
+    lastName: "Smith",
+    wkd1:"",
+    wkd2:"Attended",
+    wkd3:"",
+},
+{
+    id: 5,
+    firstName: "Jim",
+    lastName: "Johnson",
+    wkd1:"Attended",
+    wkd2:"Attended",
+    wkd3:"",
+},
+{
+    id: 6,
+    firstName: "Sally",
+    lastName: "Hanson",
+    wkd1:"Attended",
+    wkd2:"Attended",
+    wkd3:"",
+},
+{
+    id: 7,
+    firstName: "Luke",
+    lastName: "Larson",
+    wkd1:"Attended",
+    wkd2:"Attended",
+    wkd3:"",
+},
+{
+    id: 8,
+    firstName: "Jacob",
+    lastName: "Marley",
+    wkd1:"",
+    wkd2:"Attended",
+    wkd3:"",
+},
   ]

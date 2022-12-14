@@ -45,8 +45,28 @@ export default function GardenWorkdays(props) {
     //   },
     // },
     {
+      field: 'wkd1',
+      headerName: 'Dec. 5th',
+      width: 130,
+      cellClassName: (params) => {
+        return clsx('super-app', {
+          incomplete: params.value === "",
+        });
+      },
+    },
+    {
       field: 'wkd2',
-      headerName: 'Workday',
+      headerName: 'Dec. 15th',
+      width: 130,
+      cellClassName: (params) => {
+        return clsx('super-app', {
+          incomplete: params.value === "",
+        });
+      },
+    },
+    {
+      field: 'wkd3',
+      headerName: 'Jan. 5th',
       width: 130,
       cellClassName: (params) => {
         return clsx('super-app', {
