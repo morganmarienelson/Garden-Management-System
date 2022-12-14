@@ -66,7 +66,7 @@ export default function PendingApps() {
   }, []);
 
   //only render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.status === "\"pending\"");
+  const rows = applicant.filter((row) => row.status === "pending");
 
   function PaymentRecievedAppBtn () {
     const [open, setOpen] = React.useState(false);

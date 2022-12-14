@@ -69,7 +69,7 @@ export function DataTable() {
   }, []);
 
   //do not render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.status === "\"feePaid\"");
+  const rows = applicant.filter((row) => row.status === "feePaid");
 
   function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);

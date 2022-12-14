@@ -57,7 +57,7 @@ export default function PendingApps() {
   }, []);
 
   //only render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.status === "\"waitlist\"");
+  const rows = applicant.filter((row) => row.status === "waitlist");
 
   function ReopenAppBtn() {
     const [open, setOpen] = React.useState(false);
