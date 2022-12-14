@@ -8,6 +8,7 @@
     "bootstrap": "^5.2.2",
     "bootstrap-grid": "^3.0.1",
     "moment": "^2.29.4",
+    "mui": "^0.0.1",
     "react-bootstrap": "^2.6.0"
   }
 }
