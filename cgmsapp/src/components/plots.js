@@ -6,26 +6,38 @@ import GardenGrid from "./GardenGrid";
 import '../css/gardenGrid.css'
 import { GridTestData } from '../data/GridTestData';
 import PlotDataColumns from '../data/PlotDataColumns';
+import apiClient from '../api/apiClient';
+import { useEffect } from 'react';
 
 export default function Plots(){
     const [activeTabKey, setActiveTabKey] = useState('grid')
     const [showGrid, setShowGrid] = useState(true)
-    const [gridData, setGridData] = useState(GridTestData)
+    const [gridData, setGridData] = useState([])
     const [columns, setColumns] = useState(PlotDataColumns)
     const [formState, setFormState] = React.useState(false);
+
+    useEffect(() => {
+        apiClient.get("/v1/plots/get/all")
+          .then (res => {
+            res.data.forEach((row) => {
+              row.vacant = true
+            });
+          setGridData(res.data);
+        })
+      }, []);
+    console.log("plots rendered.")
   
     const handleFormChange = (event, isCheckbox=false) => {
       const label = event.target.id;
       let value = isCheckbox ? event.target.checked : event.target.value
       setFormState({...formState, [label]: value})
-      console.log(`${label}: ${value}`)
-      console.log(formState)
     }
 
     const handleSubmitForm = (setOpen) => {
+        let temp = [...gridData, {id: 0}]
         setGridData([...gridData, 
               {
-                id: gridData.length+1,
+                id: temp.reduce((prev, current) => (+prev.id > +current.id) ? prev : current), //TODO: This too. Yikes.
                 owner: "Vacant",
                 width: "25%",
                 vacant: true,
@@ -34,11 +46,17 @@ export default function Plots(){
                 other: formState.other,
             },
         ])
-        console.log(gridData)
+        // TODO: Not tested due to internal server error!
+        let apiObject = {
+            "plotId": temp.reduce((prev, current) => (+prev.id > +current.id) ? prev : current),
+            "size": formState.dimensions,
+            "feeAmount": parseInt(formState.feeAmount),
+            "memberId": 420,
+        }
+        apiClient.post('/v1/plots/create', {apiObject})
         setOpen(false)
     }
 
-    //
     let deleteFunction = (id) => {
         setGridData(gridData.filter((i)=>{
           return i.id !== id;
@@ -49,18 +67,30 @@ export default function Plots(){
         let temp = gridData.slice()
         temp[temp.findIndex(x => x.id === params.row.id)][params.field] = event.target.value
         setGridData(temp)
-        console.log(gridData)
+        // TODO: Not tested due to internal server error!
+        // apiClient.put(`/v1/plots/update/${formState.id}`,
+        // {
+        //     "size": formState.dimensions,
+        //     "feeAmount": formState.feeAmount,
+        //     "memberId": null,
+        // })
       }
     
       let editFunction = (editedRow) => {
         let temp = gridData.slice()
-        temp[temp.findIndex(x => x.id == editedRow.id)] = editedRow
+        temp[temp.findIndex(x => x.plotId === editedRow.plotId)] = editedRow
         setGridData(temp)
-        console.log(gridData)
+        // TODO: Not tested due to internal server error!
+        // apiClient.put(`/v1/plots/update/${editedRow.plotId}`, 
+        // {
+        //     size: editedRow.dimensions,
+        //     feeAmount: parseInt(editedRow.feeAmount),
+        //     memberId: 1234,
+        // })
       }
     
       let loadRowData = (id) => {
-        return gridData[gridData.findIndex(x => x.id == id)]
+        return gridData[gridData.findIndex(x => x.plotId == id)]
       }
     //
 
@@ -73,7 +103,19 @@ export default function Plots(){
             key: "table",
             tab: "Table Display"
         },
-]
+    ]
+
+    let realData = []
+    if (!!gridData) {
+      for (const row of gridData) {
+        realData.push({
+          id: row.plotId,
+          dimensions: row.size,
+          feeAmount: row.feeAmount,
+          vacant: true,
+        })
+      }
+    }
 
     return (
         <div>
@@ -105,7 +147,7 @@ export default function Plots(){
                     <AddPlotsBtn handleSubmitForm={handleSubmitForm} handleFormChange={handleFormChange}/>
                     <PlotGrid 
                         columns={columns} 
-                        gridData={gridData} 
+                        gridData={realData} 
                         deleteFunction={deleteFunction} 
                         editDoubleClickFunction={editDoubleClickFunction}
                         editFunction={editFunction}

@@ -13,7 +13,7 @@ import Divider from '@mui/material/Divider';
 export default function EditPlotsBtn(props) {
   const [open, setOpen] = React.useState(false);
   const [rowData, setRowData] = React.useState(props.loadRowData(props.id))
-  const [checked, setChecked] = React.useState(rowData.vacant);
+  const [checked, setChecked] = React.useState(rowData?.vacant);
 
   const handleClickOpen = () => {
     props.loadRowData(props.id)
@@ -56,11 +56,11 @@ export default function EditPlotsBtn(props) {
           </FormControl> */}
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="dimensions" defaultValue={rowData.dimensions} label="Plot Size" onChange={handleFormChange}/>
+            <OutlinedInput id="dimensions" defaultValue={rowData?.dimensions} label="Plot Size" onChange={handleFormChange}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="feeAmount" defaultValue={rowData.feeAmount} label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={handleFormChange} />
+            <OutlinedInput id="feeAmount" defaultValue={rowData?.feeAmount} label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={handleFormChange} />
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
             <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
@@ -68,7 +68,7 @@ export default function EditPlotsBtn(props) {
           <Divider>Additional Information</Divider>
           <FormControl sx={{ m: 1, width: '60ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="other" defaultValue={rowData.other} onChange={handleFormChange} label="Additional Details"  />
+            <OutlinedInput id="other" defaultValue={rowData?.other} onChange={handleFormChange} label="Additional Details"  />
           </FormControl>
         </DialogContent>
         <DialogActions>
