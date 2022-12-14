@@ -6,14 +6,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Checkbox, FormControlLabel, FormHelperText, OutlinedInput } from '@mui/material';
+import { OutlinedInput } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Divider from '@mui/material/Divider';
+import apiClient from '../api/apiClient';
 
-export default function AddPlotsBtn(props) {
+export default function AddPlotsBtn() {
   const [open, setOpen] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
+  const [plotId, setPlotId] = React.useState("");
+  const [dimensions, setDimensions] = React.useState("");
+  const [feeAmount, setFeeAmount] = React.useState("");
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,11 +27,30 @@ export default function AddPlotsBtn(props) {
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-    props.handleFormChange(event, true)
-  };
+  const addPlot = () => {
+    apiClient.post(`/v1/plots/create`, {plotId: plotId, size: dimensions, feeAmount: feeAmount, memberId: 0})
+      .then((res) => {
+        console.log(res.data);
+        //if status is 200, then the plot was added successfully
+        if (res.status === 200) {
+          setOpen(false);
+        }else {
+          alert("Error adding plot");
+        }
+      }
+    )
+  }
 
+  const handleFormChange = (event) => {
+    const { id, value } = event.target;
+    if (id === "ID") {
+      setPlotId(value);
+    } else if (id === "dimensions") {
+      setDimensions(value);
+    } else if (id === "feeAmount") {
+      setFeeAmount(value);
+    }
+  };
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -41,30 +64,22 @@ export default function AddPlotsBtn(props) {
           </DialogContentText>
           
           <Divider margin>Plot Information</Divider>
-          {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot ID</InputLabel>
-            <OutlinedInput id="id" label="Plot ID" onChange={props.handleFormChange}/>   
-          </FormControl> */}
+            <OutlinedInput id="ID" label="Plot ID" onChange={handleFormChange}/>
+          </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-amount">Plot Size</InputLabel>
-            <OutlinedInput id="dimensions" label="Plot Size" onChange={props.handleFormChange}/>
+            <OutlinedInput id="dimensions" label="Plot Size" onChange={handleFormChange}/>
           </FormControl> 
           <FormControl sx={{ m: 1, width: '25ch' }}>
             <InputLabel htmlFor="outlined-adornment-amount">Yearly Fee</InputLabel>
-            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={props.handleFormChange} />
-          </FormControl>
-          {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="checkbox" >
-            <FormControlLabel control = {<Checkbox checked={checked} id="vacant" onChange={handleChange}/>} label = "Vacant Lot"></FormControlLabel>
-          </FormControl> */}
-          <Divider>Additional Information</Divider>
-          <FormControl sx={{ m: 1, width: '60ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Additional Details</InputLabel>
-            <OutlinedInput id="other" onChange={props.handleFormChange} label="Additional Details"  />
+            <OutlinedInput id="feeAmount" label="Yearly Fee" startAdornment={<InputAdornment position="start">$</InputAdornment>}  onChange={handleFormChange} />
           </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={() => props.handleSubmitForm(setOpen)}>Create</Button>
+          <Button onClick={addPlot}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
