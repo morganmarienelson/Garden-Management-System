@@ -21,6 +21,11 @@ export default function GardenWorkdays(props) {
   }
 
   const columns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      width: 50,
+    },
     { field: 'firstName', 
       headerName: 'First name', 
       width: 130 
@@ -29,24 +34,19 @@ export default function GardenWorkdays(props) {
       headerName: 'Last name', 
       width: 130 
     },
-    {
-      field: 'id',
-      headerName: 'ID',
-      width: 50,
-    },
-    {
-      field: 'wkd1',
-      headerName: 'Workday 1',
-      width: 130,
-      cellClassName: (params) => {
-        return clsx('super-app', {
-          incomplete: params.value === "",
-        });
-      },
-    },
+    // {
+    //   field: 'wkd1',
+    //   headerName: 'Workday 1',
+    //   width: 130,
+    //   cellClassName: (params) => {
+    //     return clsx('super-app', {
+    //       incomplete: params.value === "",
+    //     });
+    //   },
+    // },
     {
       field: 'wkd2',
-      headerName: 'Workday 2',
+      headerName: 'Workday',
       width: 130,
       cellClassName: (params) => {
         return clsx('super-app', {
@@ -54,19 +54,19 @@ export default function GardenWorkdays(props) {
         });
       },
     },
-    {
-      field: 'notes',
-      headerName: 'Additional Notes',
-      width: 220,
-    },
-    {
-      field: 'update',
-      headerName: 'Update Workdays',
-      width: 150,
-      renderCell: (params) => {
-        return <UpdateWorkday id={params.row.id} loadRowData={loadRowData} editFunction={editFunction}></UpdateWorkday>
-      }
-    },
+    // {
+    //   field: 'notes',
+    //   headerName: 'Additional Notes',
+    //   width: 220,
+    // },
+    // {
+    //   field: 'update',
+    //   headerName: 'Update Workdays',
+    //   width: 150,
+    //   renderCell: (params) => {
+    //     return <UpdateWorkday id={params.row.id} loadRowData={loadRowData} editFunction={editFunction}></UpdateWorkday>
+    //   }
+    // },
   ];
 
 
