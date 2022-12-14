@@ -131,12 +131,14 @@ export default function PendingApps() {
         >
           <ListSubheader>20x20 Plots</ListSubheader>
           {plots.map((plot) => (
-            //if plot size is 20x20 then add to the list
+            //if plot size is 20x20 or 20 x 20 then add to the list
+            //add both sizes because some plots have a space between the x
             plot.size === '20x20' && <MenuItem value={plot.plotId}>{plot.plotId}</MenuItem>
           ))}
           <ListSubheader>10x10 Plots</ListSubheader>
           {plots.map((plot) => (
-            //if plot size is 10x10 then add to the list
+            //if plot size is 10x10  or 10 x 10 then add to the list
+            //add both sizes because some plots have a space between the x
             plot.size === '10x10' && <MenuItem value={plot.plotId}>{plot.plotId}</MenuItem>
           ))}
         </Select>

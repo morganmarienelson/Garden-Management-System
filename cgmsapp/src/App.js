@@ -50,14 +50,6 @@ const theme = createTheme({
 function App() {
   const [localUsername, setLocalUserName] = useLocalStorage('username');
   const location = useLocation();
-  //EXAMPLE OF API CALL
-  //  function apiClick () {
-  //   apiClient.get('/v1/balancebook/get/all')
-  //   .then((response) => {
-  //     console.log(response);
-  //   }
-  //   )
-  // };
 
   const mail = (
       <SocketProvider username={localUsername}>
@@ -74,7 +66,7 @@ function App() {
         <PersistentDrawerLeft />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/Plots" element={<Plots />} />
+          <Route path="/Plots" element={<Plots/>} />
           <Route path="/Applications" element={<Applications />} />
           <Route path="/Mail" element={mail} />
           <Route path="/Forum" element={<QuestionForum />} />
