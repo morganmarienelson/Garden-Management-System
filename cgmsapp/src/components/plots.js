@@ -9,17 +9,71 @@ import { GridTestData } from '../data/GridTestData';
 import PlotDataColumns from '../data/PlotDataColumns';
 
 export default function Plots(){
-    const [activeTabKey, setActiveTabKey] = useState('grid')
-    const [showTable, setShowTable] = useState(true)
+    const [activeTabKey, setActiveTabKey] = useState("grid")
+    const [showGrid, setShowGrid] = useState(true)
+    const [showWorkday, setShowWorkday] = useState(false)
+    const [gridData, setGridData] = useState(GridTestData)
+    const [columns, setColumns] = useState(false)
+    const [formState, setFormState] = React.useState(false);
+  
+    const handleFormChange = (event, isCheckbox=false) => {
+      const label = event.target.id;
+      let value = isCheckbox ? event.target.checked : event.target.value
+      setFormState({...formState, [label]: value})
+      console.log(`${label}: ${value}`)
+      console.log(formState)
+    }
+
+    const handleSubmitForm = (setOpen) => {
+        setGridData([...gridData, 
+              {
+                id: gridData.length+1,
+                owner: "Vacant",
+                width: "25%",
+                vacant: true,
+                dimensions: formState.dimensions,
+                feeAmount: formState.feeAmount,
+                other: formState.other,
+            },
+        ])
+        console.log(gridData)
+        setOpen(false)
+    }
+
+    //
+    let deleteFunction = (id) => {
+        setGridData(gridData.filter((i)=>{
+          return i.id !== id;
+        }))
+      }
+    
+      let editDoubleClickFunction = (params, event) => {
+        let temp = gridData.slice()
+        temp[temp.findIndex(x => x.id === params.row.id)][params.field] = event.target.value
+        setGridData(temp)
+        console.log(gridData)
+      }
+    
+      let editFunction = (editedRow) => {
+        let temp = gridData.slice()
+        temp[temp.findIndex(x => x.id === editedRow.id)] = editedRow
+        setGridData(temp)
+        console.log(gridData)
+      }
+    
+      let loadRowData = (id) => {
+        return gridData[gridData.findIndex(x => x.id === id)]
+      }
+    //
 
     const tabList = [
         {
-            key: "table",
-            tab: "Plot Table"
+            key: "grid",
+            tab: "Grid Display"
         },
         {
-            key: "Grid",
-            tab: "Grid Display"
+            key: "table",
+            tab: "Table Display"
         },
         {
             key: "workday",
