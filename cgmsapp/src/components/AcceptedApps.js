@@ -5,20 +5,25 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import apiClient from "../api/apiClient";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import { OutlinedInput } from "@mui/material";
+import { ListSubheader } from "@mui/material";
 import moment from "moment";
+import apiClient from "../api/apiClient";
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 export default function PendingApps() {
   const [applicant, setApplicant] = useState([]);
+  const [plots, setPlots] = useState([]);
   const [selected, setSelected] = React.useState([]);
+  const [memberSelected, setMemberSelected] = React.useState([]);
+  const [plotSizeSelected, setPlotSizeSelected] = React.useState([]);
  
   const columns = [
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "feePaid", headerName: "Fee Paid", width: 130},
     { field: "submitDate", headerName: "Submission Date", width: 140},
     { field: "submitTime", headerName: "Submission Time", width: 140},
     {
@@ -33,10 +38,10 @@ export default function PendingApps() {
       renderCell: ViewAppBtn,
     },
     {
-      field: "checkRecieved",
-      headerName: "Check Recieved",
-      width: 190,
-      renderCell: PaymentRecievedAppBtn,
+      field: "AssignPlot",
+      headerName: "Assign Plot",
+      width: 160,
+      renderCell: PlotAppBtn,
     },
     {
       field: "waitlist",
@@ -63,53 +68,89 @@ export default function PendingApps() {
         });
       setApplicant(res.data);
     })
+
+    apiClient.get("/v1/plots/get/all")
+    .then (res => {
+      //if memberId = 0 then add the plotId to the array
+      const plotId = res.data.filter((row) => row.memberId === 0);
+      setPlots(plotId);
+    });
   }, []);
 
   //only render rows that have a feePaid of null
-  const rows = applicant.filter((row) => row.status === "pending");
+  const rows = applicant.filter((row) => row.status === 'accepted');
 
-  function PaymentRecievedAppBtn () {
+  function PlotAppBtn() {
     const [open, setOpen] = React.useState(false);
-    const [amount, setAmount] = React.useState(null);
-  
+    const [plot, setPlot] = React.useState('');
+
     const handleClickOpen = () => {
       setOpen(true);
-    };
-  
+    }
     const handleClose = () => {
       setOpen(false);
-    };
-    const handleAccept = () => {
-      apiClient.put(`/v1/applications/update/feePaid/${selected}`, `${amount}`)
-      apiClient.put(`/v1/applications/update/status/${selected}`, 'feePaid')
-        const newRows = applicant.filter((row) => row.applicationId !== selected);
-        setApplicant(newRows);  
-        setOpen(false);
-    };
+    }
+    const handleChange = (event) => {
+      setPlot(event.target.value);
+    }
+    const handleSubmit = () => {
+      apiClient.post(`/v1/members/update/isCurrentGardener/${memberSelected}`, null, {params: {isCurrentGardener: true}})
+      apiClient.put(`/v1/plots/update/${plot}`, memberSelected)
+      //if api call is successful then delete the application
+      .then (res => {
+        if (res.status === 200) {
+          apiClient.delete(`/v1/applications/delete/${selected}`)
+          const newRows = applicant.filter((row) => row.applicationId !== selected);
+          setApplicant(newRows);
+          const newPlots= plots.filter((row) => row.plotId !== plot);
+          setPlots(newPlots);
+          setOpen(false);
+        } else {
+          alert("Error assigning plot. Please try again.")
+        }
+      })}
 
-    return (
-      <div>
-        <Button variant="outlined" onClick={handleClickOpen}>
-          Check Recieved
-        </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>
-            What is the amount recieved?
-          </DialogTitle>
-          <DialogContent>
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor="outlined-adornment-amount">Amount Recieved</InputLabel>
-            <OutlinedInput id="amount" label="Amount Recieved" onChange={(event) => setAmount(event.target.value)} />
-          </FormControl> 
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleAccept}>Submit</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Button variant="outlined" onClick={handleClickOpen}>Assign Plot</Button >
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Assign Plot</DialogTitle>
+        <DialogContent>
+        <DialogContentText>
+          Please select a plot ID to assign to this member.
+        </DialogContentText>
+        <DialogContentText sx={{mt:1, mb: 1}}>
+        Applicants preferred plot size: {plotSizeSelected}.
+        </DialogContentText>
+        <Select
+          id="demo-simple-select-helper"
+          variant="outlined"
+          value={plot}
+          onChange={handleChange}
+          sx={{ width: 300, height: 40, marginTop: 1, marginBottom: 1 }}
+        >
+          <ListSubheader>20x20 Plots</ListSubheader>
+          {plots.map((plot) => (
+            //if plot size is 20x20 or 20 x 20 then add to the list
+            //add both sizes because some plots have a space between the x
+            plot.size === '20x20' && <MenuItem value={plot.plotId}>{plot.plotId}</MenuItem>
+          ))}
+          <ListSubheader>10x10 Plots</ListSubheader>
+          {plots.map((plot) => (
+            //if plot size is 10x10  or 10 x 10 then add to the list
+            //add both sizes because some plots have a space between the x
+            plot.size === '10x10' && <MenuItem value={plot.plotId}>{plot.plotId}</MenuItem>
+          ))}
+        </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </DialogActions>
+      </Dialog>
+        </div>
+  );
+}
 
   function WaitlistAppBtn() {
     const [open, setOpen] = React.useState(false);
@@ -191,7 +232,13 @@ export default function PendingApps() {
     <div style={{ height: 400, width: "100%" , marginTop: 30}}>
       <DataGrid
         getRowId={(row) => row.applicationId}
-        rows={rows} onCellClick={(e) => setSelected(e.row.applicationId)}
+        rows={rows} 
+        onCellClick={(cell) => {
+          setSelected(cell.row.applicationId);
+          setMemberSelected(cell.row.memberId);
+          setPlotSizeSelected(cell.row.preferredPlotSize);
+        }
+        }
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

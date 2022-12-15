@@ -33,10 +33,10 @@ export default function Footer() {
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>
                 <MDBIcon icon="pagelines" className="me-3" />
-            Comunity Garden Management System
+            Community Garden Management System
               </h6>
               <p>
-            Providing comunity gardening to all.
+            Providing community gardening to all.
               </p>
             </MDBCol>
 
@@ -106,7 +106,7 @@ export default function Footer() {
               </p>
               <p>
                 <MDBIcon icon="envelope" className="me-3" />
-                comunitygarden@gmail.com
+                communitygarden@gmail.com
               </p>
               <p>
                 <MDBIcon icon="phone" className="me-3" /> + 01 234 567 88
@@ -122,7 +122,7 @@ export default function Footer() {
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2021 Copyright:
         <p className='text-reset fw-bold'>
-          Comunity Garden Management System
+          Community Garden Management System
         </p>
       </div>
     </MDBFooter>

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const token = localStorage.getItem('token');
 const apiClient = axios.create({
-    baseURL: 'http://159.223.113.61:8080/UCGBTEST',
+    baseURL: 'http://159.223.113.61:8080/UCGB',
     headers: {
         'accept': 'application/json',
         'Content-Type': 'application/json',
