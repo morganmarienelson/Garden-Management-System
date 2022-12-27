@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+# Community Garden Management System
+This system manages the applications, plot assignments, and work days for the Eau Claire Community
+Garden.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Motivation
+This project was a semester project for the Software Engineering 2 course at
+the University of Wisconsin - Eau Claire.
 
-## Available Scripts
+## Status
+This project's build ended at the completion of the fall 2022 semester at the University of Wisconsin - Eau Claire. The question forum,
+notifications, and account management tools have not been started. Visibility restrictions for general gardeners has also not been completed.
 
-In the project directory, you can run:
+## Features
+### For All Users
+* Sign up
+* Login
+* View current information about garden on homepage
+* Navigate throughout pages via navigation bar and footer
+* Direct message other users
 
-### `npm start`
+### For Gardeners
+* View scheduled work day
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### For Garden Manager
+* View plot assignments on grid
+* View plot assignments on table
+* Delete current plot assignments
+* Edit current plot assignments
+* View work day attendance
+* View pending applications
+* Accept pending applications
+* View current applications
+* Accept/reject current applications
+* View accepted applications
+* View wait list applications
+* Reopen wait list applications
+* Plot assignment
+* Set application window
+* Adjust/close application window
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## How to Start?
+1. run `npm install`
+2. navigate to cgmsapp file
+3. run `npm start`
+4. navigate to serverTest file
+5. run `npm run devStart`
 
-### `npm test`
+### Contributions
+This frontend application was created by Hallie Oberg, Jason Pritzl, Enock Omweno,
+Braden Konop, Vaughn Kromrey, and Morgan Nelson
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Credits
+Direct Messaging System Design: https://youtu.be/tBr-PybP_9c
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
